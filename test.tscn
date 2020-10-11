@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://OverlandSet.tres" type="TileSet" id=2]
+[ext_resource path="res://addons/MapGenTools/_HeightMap.gd" type="Script" id=3]
+[ext_resource path="res://walker.gd" type="Script" id=4]
+[ext_resource path="res://textures/tmp.png" type="Texture" id=5]
+
+[node name="Node" type="Node"]
+
+[node name="HeightMap" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="TileMap" type="TileMap" parent="HeightMap"]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 8, 8 )
+format = 1
+
+[node name="walker" type="Sprite" parent="."]
+position = Vector2( 430.844, 178.825 )
+texture = ExtResource( 5 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="walker"]
+current = true
+limit_left = -1
+limit_top = -1
+[connection signal="ready" from="HeightMap" to="walker" method="_on_HeightMap_ready"]
