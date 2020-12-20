@@ -1,30 +1,26 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
+[ext_resource path="res://test.gd" type="Script" id=1]
 [ext_resource path="res://OverlandSet.tres" type="TileSet" id=2]
-[ext_resource path="res://addons/MapGenTools/_HeightMap.gd" type="Script" id=3]
-[ext_resource path="res://walker.gd" type="Script" id=4]
-[ext_resource path="res://textures/tmp.png" type="Texture" id=5]
+[ext_resource path="res://Sources/Scenes/World.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sources/Scripts/WorldMetadata.gd" type="Script" id=4]
+[ext_resource path="res://walker.tscn" type="PackedScene" id=5]
+[ext_resource path="res://TileMap.gd" type="Script" id=6]
 
 [node name="Node" type="Node"]
+script = ExtResource( 1 )
 
-[node name="HeightMap" type="Node" parent="."]
-script = ExtResource( 3 )
-
-[node name="TileMap" type="TileMap" parent="HeightMap"]
+[node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
 format = 1
+script = ExtResource( 6 )
 
-[node name="walker" type="Sprite" parent="."]
-position = Vector2( 430.844, 178.825 )
-texture = ExtResource( 5 )
+[node name="WorldMetadata" parent="." instance=ExtResource( 3 )]
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="Camera2D" type="Camera2D" parent="walker"]
-current = true
-limit_left = -1
-limit_top = -1
-[connection signal="ready" from="HeightMap" to="walker" method="_on_HeightMap_ready"]
+[node name="walker" parent="." instance=ExtResource( 5 )]
+
+[editable path="WorldMetadata"]
+
+[editable path="walker"]

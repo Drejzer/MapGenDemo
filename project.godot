@@ -8,16 +8,27 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "River",
+"language": "GDScript",
+"path": "res://Sources/Scripts/River.gd"
+}, {
+"base": "Reference",
+"class": "RiverSegment",
+"language": "GDScript",
+"path": "res://Sources/Scripts/RiverSegment.gd"
+} ]
 _global_script_class_icons={
-
+"River": "",
+"RiverSegment": ""
 }
 
 [application]
 
 config/name="Map Demo Game"
-run/main_scene="res://test.tscn"
-config/icon="res://addons/MapGenTools/icon.png"
+run/main_scene="res://Sources/Scenes/MainMenu.tscn"
+config/icon="res://icon.png"
 
 [editor_plugins]
 
@@ -25,4 +36,4 @@ enabled=PoolStringArray( "MapGenTools" )
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+quality/driver/driver_name="GLES2"
