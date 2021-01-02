@@ -25,3 +25,5 @@ func SaveWorld():
 	file.open("user://"+world_name,File.WRITE)
 	#file.store_line(JSON.print(self))
 	file.close()
+
+

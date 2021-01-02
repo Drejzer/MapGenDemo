@@ -6,6 +6,7 @@ var speedmod= 1.0
 	
 func _ready() -> void:
 	position = Vector2(100,100)
+	get_child(0).zoom=Vector2(5,5)
 
 # warning-ignore:unused_argument
 func _process(delta: float):

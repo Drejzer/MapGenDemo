@@ -9,7 +9,7 @@ func _ready() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	m.world_seed=rng.get_seed()
-	m.make_world([rng.randi_range(444,666)])
+	m.make_world()
 	var a = get_node("TileMap")
 	var w=get_node("walker")
 	w._on_HeightMap_ready()

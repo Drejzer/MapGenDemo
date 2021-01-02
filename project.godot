@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "Cell",
+"language": "GDScript",
+"path": "res://Sources/Scripts/WorldCell.gd"
+}, {
+"base": "Reference",
 "class": "River",
 "language": "GDScript",
 "path": "res://Sources/Scripts/River.gd"
@@ -18,10 +23,17 @@ _global_script_classes=[ {
 "class": "RiverSegment",
 "language": "GDScript",
 "path": "res://Sources/Scripts/RiverSegment.gd"
+}, {
+"base": "Reference",
+"class": "WorldState",
+"language": "GDScript",
+"path": "res://Sources/Scripts/WorldState.gd"
 } ]
 _global_script_class_icons={
+"Cell": "",
 "River": "",
-"RiverSegment": ""
+"RiverSegment": "",
+"WorldState": ""
 }
 
 [application]

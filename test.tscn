@@ -21,6 +21,10 @@ script = ExtResource( 4 )
 
 [node name="walker" parent="." instance=ExtResource( 5 )]
 
+[node name="Camera2D" parent="walker" index="0"]
+limit_left = -2
+limit_top = -2
+
 [editable path="WorldMetadata"]
 
 [editable path="walker"]
