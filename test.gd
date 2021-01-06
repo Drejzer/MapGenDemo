@@ -8,7 +8,7 @@ func _ready() -> void:
 	counter=0
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	m.world_seed=rng.get_seed()
+	m.world_seed=rng.randi()
 	m.make_world()
 	var a = get_node("TileMap")
 	var w=get_node("walker")

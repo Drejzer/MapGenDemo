@@ -69,6 +69,51 @@ func GenerateHeightMap_plasma(depth:int=7,displace:float=110.0,roughness:float=1
 		displace*=pow(2,-roughness)
 	pass
 
+func GenerateCylindricHeightMap_plasma(depth:int=7,displace:float=110.0,roughness:float=1.0):
+	world_x_size=int(pow(2,depth))+1
+	world_y_size=world_x_size
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	map=[]
+	for i in range(world_x_size):
+		map.append([])
+		for _j in range(world_y_size):
+			map[i].append(0.0)
+	var stepsize=int(pow(2,depth))
+	while stepsize>1:
+		for x in range(0,world_x_size,stepsize):
+				for y in range(0,world_y_size,stepsize):
+					if y+stepsize<world_y_size:
+						map[((x+x+stepsize)/2)%world_x_size][(y+y+stepsize)/2]=rng.randf_range(-displace,displace)+(map[x%world_x_size][y]+map[x%world_x_size][y+stepsize]+map[(stepsize+x)%world_x_size][stepsize+y]+map[(stepsize+x)%world_x_size][y])/4.0
+		for x in range(0,world_x_size,stepsize):
+				for y in range(0,world_y_size,stepsize):
+					if y+stepsize<world_y_size:
+						var srod_x=(x+x+stepsize)/2
+						var srod_y=(y+y+stepsize)/2
+						var far_x=x+stepsize
+						var far_y=y+stepsize
+						var before_x= x-stepsize/2
+						var before_y= y-stepsize/2
+						var after_x=far_x+stepsize/2
+						var after_y= far_y+stepsize/2
+						
+						map[x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[x%world_x_size][far_y]+map[(world_x_size+before_x)%world_x_size][srod_y])/4+rng.randf_range(-displace,displace)
+						
+						if y==0:
+							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y])/3+rng.randf_range(-displace,displace)
+						else:
+							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y]+map[srod_x%world_x_size][before_y])/4+rng.randf_range(-displace,displace)
+						
+						map[far_x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[far_x%world_x_size][y]+map[far_x%world_x_size][far_y]+map[after_x%world_x_size][srod_y])/4+rng.randf_range(-displace,displace)
+						
+						if far_y==world_y_size-1:
+							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y])/3+rng.randf_range(-displace,displace)
+						else:
+							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y]+map[srod_x%world_x_size][after_y])/4+rng.randf_range(-displace,displace)
+		stepsize/=2
+		displace*=pow(2,-roughness)
+	pass
+
 
 func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
 	world_x_size=x_size
@@ -118,9 +163,9 @@ func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2
 			
 
 
-func Erode(cutoff:float,iterations:int=500,strength:float=0.01):
+func Erode(cutoff:float,iterations:int=1000,strength:float=0.01):
 	var rng=RandomNumberGenerator.new()
-	rng.seed=world_seed
+	rng.set_seed(world_seed)
 	for _i in range(iterations):
 		var drop = Vector3(rng.randi_range(0,world_x_size-1),rng.randi_range(0,world_y_size-1),0)
 		while map[drop.x][drop.y]>cutoff*0.6:
@@ -129,8 +174,8 @@ func Erode(cutoff:float,iterations:int=500,strength:float=0.01):
 			elif map[drop.x][drop.y]<cutoff:
 				map[drop.x][drop.y]-=strength*0.5
 			drop.z=map[drop.x][drop.y]
-			var newdrop=drop
-			if newdrop.y>0:
+			var newdrop = drop
+			if newdrop.y > 0.0:
 				if map[(drop.x-1)%world_x_size][(drop.y-1)%world_y_size]<=newdrop.z:
 					newdrop=Vector3((drop.x-1)%world_x_size,(drop.y-1)%world_y_size,newdrop.z)
 				if  map[(drop.x)%world_x_size][(drop.y-1)%world_y_size]<=newdrop.z:
@@ -175,4 +220,4 @@ func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vecto
 		for y in range(world_y_size):
 
 			map[x].append(osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)/0.8*difference)
-	Erode(difference*0.95)
+	#Erode(difference*0.95)

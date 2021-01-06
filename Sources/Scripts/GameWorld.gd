@@ -12,7 +12,7 @@ export var layers=[]
 
 func _ready() -> void:
 	layers.append(get_node("HeightMap"))
-	layers.append(get_node("HumidityMap"))
+	layers.append(get_node("RainfallMap"))
 	layers.append(get_node("TemperatureMap"))
 	layers.append(get_node("VegetationMap"))
 
