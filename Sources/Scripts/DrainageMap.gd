@@ -1,15 +1,8 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
 
-
 func Generate():
-	
-	map=[]
-	
-	world_x_size=get_parent().world_x_size
-	world_y_size=get_parent().world_y_size
-	#layer_seed=get_parent().layer_seed
-	
+	map = []
 	
 	var osn = OpenSimplexNoise.new()
 	osn.set_seed(layer_seed)

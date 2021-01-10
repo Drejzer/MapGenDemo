@@ -1,31 +1,26 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
-export var TemperatureHigh:float=30.0
-export var TemperatureLow:float=-30.0
-export var offset:Vector3=Vector3(100.0,50.0,0.0)
-export var lacun=2.0
-export var period=200.0
-export var persist=0.5
-export var octaves=2
+
 
 func Generate():
 	GenerateTemperatureMap()
 
 func GenerateTemperatureMap():
+	var TemperatureHigh=1
 	map=[]
 	
 	world_x_size=get_parent().world_x_size
 	world_y_size=get_parent().world_y_size
-	#world_seed=get_parent().world_seed
+	#layer_seed=get_parent().layer_seed
 	
 	
 	var osn = OpenSimplexNoise.new()
-	osn.set_seed(world_seed)
+	osn.set_seed(layer_seed)
 	osn.lacunarity = lacun
 	osn.period = period
 	osn.persistence = persist
 	osn.octaves = octaves
-	#print("$",world_seed,"?=",osn.get_seed())
+	#print("$",layer_seed,"?=",osn.get_seed())
 	
 	var radius = float(world_x_size)/(2.0*PI)
 	

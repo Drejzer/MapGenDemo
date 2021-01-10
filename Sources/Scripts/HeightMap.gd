@@ -149,7 +149,7 @@ func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
 func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2=Vector2(0,0), difference=1, lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves=4):
 	map=[]
 	var osn = OpenSimplexNoise.new()
-	osn.seed=world_seed
+	osn.seed=layer_seed
 	osn.lacunarity=lacun
 	osn.period=period
 	osn.persistence=persist
@@ -163,44 +163,51 @@ func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2
 			
 
 
-func Erode(cutoff:float,iterations:int=1000,strength:float=0.01):
+func Erode(cutoff:float,iterations:int=1,strength:float=0.01):
 	var rng=RandomNumberGenerator.new()
-	rng.set_seed(world_seed)
+	rng.set_seed(layer_seed)
 	for _i in range(iterations):
-		var drop = Vector3(rng.randi_range(0,world_x_size-1),rng.randi_range(0,world_y_size-1),0)
-		while map[drop.x][drop.y]>cutoff*0.6:
-			if map[drop.x][drop.y]>=cutoff:
-				map[drop.x][drop.y]-=strength
-			elif map[drop.x][drop.y]<cutoff:
-				map[drop.x][drop.y]-=strength*0.5
-			drop.z=map[drop.x][drop.y]
-			var newdrop = drop
-			if newdrop.y > 0.0:
-				if map[(drop.x-1)%world_x_size][(drop.y-1)%world_y_size]<=newdrop.z:
-					newdrop=Vector3((drop.x-1)%world_x_size,(drop.y-1)%world_y_size,newdrop.z)
-				if  map[(drop.x)%world_x_size][(drop.y-1)%world_y_size]<=newdrop.z:
-					newdrop=Vector3((drop.x)%world_x_size,(drop.y-1)%world_y_size,newdrop.z)
-				if  map[(drop.x+1)%world_x_size][(drop.y-1)%world_y_size]<=newdrop.z:
-					newdrop=Vector3((drop.x+1)%world_x_size,(drop.y-1)%world_y_size,newdrop.z)
-			if map[(drop.x+1)%world_x_size][(drop.y)%world_y_size]<=newdrop.z:
-				newdrop=Vector3((drop.x+1)%world_x_size,(drop.y)%world_y_size,newdrop.z)
-			if newdrop.y<world_y_size-1:
-				if map[(drop.x+1)%world_x_size][(drop.y+1)%world_y_size]<=newdrop.z:
-					newdrop=Vector3((drop.x+1)%world_x_size,(drop.y+1)%world_y_size,newdrop.z)
-				if map[(drop.x)%world_x_size][(drop.y+1)%world_y_size]<=newdrop.z:
-					newdrop=Vector3((drop.x)%world_x_size,(drop.y+1)%world_y_size,newdrop.z)
-				if map[(drop.x-1)%world_x_size][(drop.y+1)%world_y_size]<=newdrop.z:
-					newdrop=Vector3((drop.x-1)%world_x_size,(drop.y+1)%world_y_size,newdrop.z)
-			if map[(drop.x-1)%world_x_size][(drop.y)%world_y_size]<=newdrop.z:
-				newdrop=Vector3((drop.x-1)%world_x_size,(drop.y)%world_y_size,newdrop.z)
-			if newdrop == drop:
-				break
+		#var drx=rng.randi_range(0,world_x_size-1)
+		#var dry=rng.randi_range(0,world_y_size-1)
+		for drx in range(world_x_size):
+			for dry in range(world_y_size):
+				var drop = Vector3(drx,dry,0)
+				while map[drop.x][drop.y]>0.0:
+					if map[drop.x][drop.y]>=cutoff:
+						map[drop.x][drop.y]-=strength
+					elif map[drop.x][drop.y]<cutoff*0.5:
+						map[drop.x][drop.y]-=strength*0.5
+					else:
+						map[drop.x][drop.y]+=strength*0.2
+					drop.z=map[drop.x][drop.y]
+					var newdrop = drop
+					if newdrop.y > 0.0:
+						if map[(world_x_size+int(drop.x-1))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
+							newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
+						if  map[(world_x_size+int(drop.x))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
+							newdrop=Vector3((world_x_size+int(drop.x))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
+						if  map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
+							newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
+					if map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y))%world_y_size]<=newdrop.z:
+						newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y))%world_y_size,newdrop.z)
+					if newdrop.y<world_y_size-1:
+						if map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
+							newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
+						if map[(world_x_size+int(drop.x))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
+							newdrop=Vector3((world_x_size+int(drop.x))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
+						if map[(world_x_size+int(drop.x-1))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
+							newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
+					if map[(int(drop.x-1))%world_x_size][(int(drop.y))%world_y_size]<=newdrop.z:
+						newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y))%world_y_size,newdrop.z)
+					if newdrop == drop:
+						break
 
 
-func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vector3(0,0,0), difference=1.0, lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves=4):
+func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vector3(0,0,0), lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves:int=4):
 	map=[]
+	
 	var osn = OpenSimplexNoise.new()
-	osn.set_seed(world_seed)
+	osn.set_seed(layer_seed)
 	osn.lacunarity = lacun
 	osn.period = period
 	osn.persistence = persist
@@ -219,5 +226,4 @@ func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vecto
 		
 		for y in range(world_y_size):
 
-			map[x].append(osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)/0.8*difference)
-	#Erode(difference*0.95)
+			map[x].append(osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)/0.8)
