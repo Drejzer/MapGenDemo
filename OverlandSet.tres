@@ -133,7 +133,7 @@
 9/texture = ExtResource( 1 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 0.44, 0.1892, 0.022, 1 )
-9/region = Rect2( 0, 0, 8, 8 )
+9/region = Rect2( -10, -5, 1200, 71 )
 9/tile_mode = 0
 9/occluder_offset = Vector2( 4, 4 )
 9/navigation_offset = Vector2( 4, 4 )

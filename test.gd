@@ -3,7 +3,7 @@ var m
 var thr=Thread.new()
 var counter:int
 
-func _ready() -> void:
+func make_ready() -> void:
 	m=get_node("WorldMetadata")
 	counter=0
 	var rng = RandomNumberGenerator.new()
@@ -19,6 +19,7 @@ func _ready() -> void:
 func _thr_world_gen(starttime):
 	print(starttime)
 	m.make_world(600,600)
+	
 
 func _savemap():
 	var file=File.new()

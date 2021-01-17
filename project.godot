@@ -14,15 +14,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Sources/Scripts/WorldPoint.gd"
 }, {
-"base": "Reference",
-"class": "River",
+"base": "AStar",
+"class": "RiverAStar",
 "language": "GDScript",
-"path": "res://Sources/Scripts/River.gd"
-}, {
-"base": "Reference",
-"class": "RiverSegment",
-"language": "GDScript",
-"path": "res://Sources/Scripts/RiverSegment.gd"
+"path": "res://Sources/Scripts/RiverAStar.gd"
 }, {
 "base": "Reference",
 "class": "WorldState",
@@ -31,8 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Point": "",
-"River": "",
-"RiverSegment": "",
+"RiverAStar": "",
 "WorldState": ""
 }
 

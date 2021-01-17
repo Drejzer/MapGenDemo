@@ -32,7 +32,7 @@ func Generate():
 			var noiseval = osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)
 			noiseval=clamp(0.15*noiseval+0.35*tm.map[x][y]+0.5*rfm.map[x][y],0.0,2.0)
 			
-			if tm.map[x][y]<=par.IcebergThershold+0.001 or hm.map[x][y]>=1.0-(1.0-par.MountainThreshold)*0.75 or hm.map[x][y]<=par.SeaLevel-0.0015:
+			if tm.map[x][y]<=par.IcebergThershold+0.001 or hm.map[x][y]>=1.0-(1.0-par.MountainThreshold)*0.75 or hm.map[x][y]<=par.SeaLevel-0.0025:
 				noiseval=0
 			map[x].append(noiseval)
 
