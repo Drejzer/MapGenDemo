@@ -100,16 +100,16 @@ func GenerateCylindricHeightMap_plasma(depth:int=7,displace:float=110.0,roughnes
 						map[x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[x%world_x_size][far_y]+map[(world_x_size+before_x)%world_x_size][srod_y])/4+rng.randf_range(-displace,displace)
 						
 						if y==0:
-							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y])/3+rng.randf_range(-displace,displace)
+							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y]+map[srod_x%world_x_size][before_y])/4+rng.randf_range(-displace,displace)
+							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y]+map[srod_x%world_x_size][before_y])/4#+rng.randf_range(-displace,displace)
 						
-						map[far_x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[far_x%world_x_size][y]+map[far_x%world_x_size][far_y]+map[after_x%world_x_size][srod_y])/4+rng.randf_range(-displace,displace)
+						map[far_x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[far_x%world_x_size][y]+map[far_x%world_x_size][far_y]+map[after_x%world_x_size][srod_y])/4#+rng.randf_range(-displace,displace)
 						
 						if far_y==world_y_size-1:
-							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y])/3+rng.randf_range(-displace,displace)
+							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y]+map[srod_x%world_x_size][after_y])/4+rng.randf_range(-displace,displace)
+							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y]+map[srod_x%world_x_size][after_y])/4#+rng.randf_range(-displace,displace)
 		stepsize/=2
 		displace*=pow(2,-roughness)
 	pass
@@ -146,7 +146,7 @@ func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
 				i.wait_to_finish()
 		
 
-func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2=Vector2(0,0), difference=1, lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves=4):
+func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2=Vector2(0,0), difference=1, lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves=3):
 	map=[]
 	var osn = OpenSimplexNoise.new()
 	osn.seed=layer_seed

@@ -3,6 +3,8 @@ extends Sprite
 var barrier_x:int;var barrier_y:int
 var speed = 10.0;
 var speedmod= 1.0
+var gensemafor=false
+
 	
 func _ready() -> void:
 	position = Vector2(100,100)
@@ -28,7 +30,8 @@ func _process(delta: float):
 		speed=16
 	if Input.is_key_pressed(KEY_F):
 		speed+=8
-	if Input.is_key_pressed(KEY_SPACE):
+	if Input.is_key_pressed(KEY_SPACE) && !gensemafor:
+		gensemafor=true
 		get_parent().make_ready()
 	position=Vector2(self.position.x,clamp(self.position.y,0,barrier_y))
 
@@ -48,4 +51,5 @@ func _on_HeightMap_ready() -> void:
 		position.y=barrier_y-1
 	elif position.y < 0:
 		position.y=1
+	gensemafor=false
 	#print(barrier_x,barrier_y)

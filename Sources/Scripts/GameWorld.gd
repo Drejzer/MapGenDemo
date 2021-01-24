@@ -11,7 +11,7 @@ export var MountainThreshold=0.6
 export var ForestThreshold=0.5
 export var TemperatureHigh:float=30.0
 export var TemperatureLow:float=-30.0
-export var RiverCount=1
+export var RiverCount=11
 
 var rng
 
@@ -21,6 +21,8 @@ export var secondaryLayers=[]
 func _ready() -> void:
 	rng=RandomNumberGenerator.new()
 	rng.seed=world_seed
+	primaryLayers=[]
+	secondaryLayers=[]
 	primaryLayers.append(get_node("HeightMap"))
 	primaryLayers.append(get_node("RainfallMap"))
 	primaryLayers.append(get_node("DrainageMap"))

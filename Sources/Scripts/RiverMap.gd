@@ -11,16 +11,58 @@ var terr
 func _ready() -> void:
 	terr =get_parent().get_node("HeightMap")
 	par=get_parent()
-func RiverSource_fromVector(point,is_cylindric=true)->bool:
-	return RiverSource(point.x,point.y)
+
+func hsort(a,b)->bool:
+	return terr.map[a.x][a.y]<terr.map[b.x][b.y]
+
+func RiverSource(x,y):
+	var riv=[]
+	var riverhead = Vector2(x,y)
+	riv.push_back(riverhead)
+	var depth=0
+	while map[riverhead.x][riverhead.y]>-1 && map[riverhead.x][riverhead.y]<1:
+		var dirs=[]
+		dirs.push_back(Vector2((int(riverhead.x)+world_x_size+1)%world_x_size,int(riverhead.y)))
+		if int(riverhead.y) > 0:
+			dirs.push_back(Vector2(int(riverhead.x),riverhead.y-1))
+		dirs.push_back(Vector2((int(riverhead.x)+world_x_size-1)%world_x_size,riverhead.y))
+		if int(riverhead.y)<world_y_size-1:
+			dirs.push_back(Vector2(riverhead.x,riverhead.y+1))
+		dirs.sort_custom(self,"hsort")
+		while riv.has(dirs[0]):
+			dirs.remove(0)
+			if dirs.size()<1:
+				break
+		if dirs.size()==0:
+			depth+=1
+			#riv.remove(riv.size()-1)
+			riv.push_front(riverhead)
+			riverhead = riv[riv.size()-1-depth]
+		elif terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(riverhead.x)][int(riverhead.y)]:
+			var prev = riv[riv.size()-1]
+			if terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(prev.x)][int(prev.y)]:
+				depth+=1
+				riv.push_front(riverhead)
+				riverhead = riv[riv.size()-1-depth]
+			terr.map[int(riverhead.x)][int(riverhead.y)]=terr.map[int(dirs[0].x)][int(dirs[0].y)]
+			riv.push_back(Vector2(riverhead.x,riverhead.y))
+			riverhead=dirs[0]
+			terr.map[int(riverhead.x)][int(riverhead.y)]-=0.0001
+			depth=0
+		else:
+			riv.push_back(Vector2(riverhead.x,riverhead.y))
+			riverhead=dirs[0]
+			depth=0
+	for r in riv:
+		map[int(r.x)][int(r.y)]=1
 
 
-func RiverSource(x,y)->bool:
+func RiverSource_AStar(x,y)->bool:
 	var flag=false
 	var riversource = Vector2(x,y)
 	var riverend:Vector2
 	for p in seapoints:
-		if astar.are_points_connected(x+y*world_x_size,p.x+p.y*world_x_size,false):
+		if astar.are_points_connected(x+y*world_x_size,int(p.x)+int(p.y)*world_x_size):
 			flag=true
 			riverend=p
 			break
@@ -40,7 +82,7 @@ func get_potential_sources()->Array:
 	for x in range(world_x_size):
 		for y in range(world_y_size):
 			var gut=true
-			if (rain.map[x][y]>=0.66 or terr.map[x][y]>=par.MountainThreshold*0.8):
+			if (rain.map[x][y]>=0.75 or terr.map[x][y]>=par.MountainThreshold*0.8):
 				if gut:
 					pot_src.push_back(Vector2(x,y))
 	return pot_src
@@ -50,25 +92,25 @@ func gen_astar_connectivity(is_cylindrical=true):
 	for x in range(world_x_size):
 		for y in range(world_y_size):
 			if is_cylindrical:
-				if terr.map[x][y]>par.SeaLevel:
+				if terr.map[x][y]>=par.SeaLevel:
 					if terr.map[(x+world_x_size+1)%world_x_size][y]<=terr.map[x][y]:
-						astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*y,false)
+						astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*y)
 					if terr.map[(x+world_x_size-1)%world_x_size][y]<=terr.map[x][y]:
-						astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*y,false)
+						astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*y)
 					if y<world_y_size-1:
-						if terr.map[(x+world_x_size+1)%world_x_size][y+1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y+1),false)
-						if terr.map[(x+world_x_size-1)%world_x_size][y+1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y+1),false)
+#						if terr.map[(x+world_x_size+1)%world_x_size][y+1]<=terr.map[x][y]:
+#							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y+1))
+#						if terr.map[(x+world_x_size-1)%world_x_size][y+1]<=terr.map[x][y]:
+#							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y+1))
 						if terr.map[(x+world_x_size)%world_x_size][y+1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y+1),false)
+							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y+1))
 					if y>0:
-						if terr.map[(x+world_x_size+1)%world_x_size][y-1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y-1),false)
-						if terr.map[(x+world_x_size-1)%world_x_size][y-1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y-1),false)
+#						if terr.map[(x+world_x_size+1)%world_x_size][y-1]<=terr.map[x][y]:
+#							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y-1))
+#						if terr.map[(x+world_x_size-1)%world_x_size][y-1]<=terr.map[x][y]:
+#							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y-1))
 						if terr.map[(x+world_x_size)%world_x_size][y-1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y-1),false)
+							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y-1))
 				else:
 					if terr.map[(x+world_x_size+1)%world_x_size][y]<=par.SeaLevel:
 						astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*y)
@@ -99,36 +141,46 @@ func verify_startpoints(sp)->Array:
 					continue
 				if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)]>=1:
 					continue
+				if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)]>=1:
+					continue
 				if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)]>=1:
+					continue
+				if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)]>=1:
 					continue
 				if int(p.y)<world_y_size-1:
 					if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)+1]>=1:
 						continue
+					if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)+1]>=1:
+						continue
 					if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)+1]>=1:
+						continue
+					if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)+1]>=1:
 						continue
 					if terr.map[(int(p.x)+world_x_size)%world_x_size][int(p.y)+1]<=-1 or terr.map[(int(p.x)+world_x_size)%world_x_size][int(p.y)+1]>=1:
 						continue
-#				if y<world_y_size-2:
-#					if map[(x+world_x_size+1)%world_x_size][y+2]!=0 or map[(x+world_x_size+2)%world_x_size][y+2]!=0:
-#						continue
-#					if map[(x+world_x_size-1)%world_x_size][y+2]!=0 or map[(x+world_x_size-2)%world_x_size][y+2]!=0:
-#						continue
-#					if terr.map[(x+world_x_size)%world_x_size][y+2]!=0:
-#						continue
 				if p.y>=1:
 					if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-1]>=1:
 						continue
+					if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-1]>=1:
+						continue
 					if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-1]>=1:
+						continue
+					if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-1]>=1:
 						continue
 					if map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-1]>=1:
 						continue
-#				if y>1:
-#					if map[(x+world_x_size+1)%world_x_size][y-2]!=0 or map[(x+world_x_size+2)%world_x_size][y-2]:
-#						continue
-#					if map[(x+world_x_size-1)%world_x_size][y-2]!=0 or map[(x+world_x_size-2)%world_x_size][y-2]:
-#						continue
-#					if map[(x+world_x_size)%world_x_size][y-2]!=0:
-#						continue
+				if p.y>=2:
+					if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-2]>=1:
+						continue
+					if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-2]>=1:
+						continue
+					if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-2]>=1:
+						continue
+					if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-2]>=1:
+						continue
+					if map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-2]>=1:
+						continue
+				
 				np.push_back(p)
 	return np
 
@@ -170,34 +222,33 @@ func Generate():
 		for y in range(world_y_size):
 			if terr.map[x][y]>par.SeaLevel:
 				map[x].push_back(int(0))
-				astar.add_point(x+y*world_x_size,Vector3(x,y,terr.map[x][y]))
+#				astar.add_point(x+y*world_x_size,Vector3(x,y,terr.map[x][y]))
 			else:
 				map[x].push_back(int(-1))
 				#seapoints.push_back(Vector2(x,y))
-				astar.add_point(x+y*world_x_size,Vector3(x,y,terr.map[x][y]))
+#				astar.add_point(x+y*world_x_size,Vector3(x,y,terr.map[x][y]))
 	var i=0
 	
-	gen_astar_connectivity()
+#	gen_astar_connectivity()
 	get_coast_points()
-	
-	
+		
 	var startpoints = get_potential_sources()
-	verify_startpoints(startpoints)
+	startpoints = verify_startpoints(startpoints)
 #	startpoints.shuffle()
 #	for p in startpoints:
 #		map[p.x][p.y]=1
 #			
 #	return
 	while i<par.RiverCount:
-		var randiter=0#rng.randi_range(0,startpoints.size()-1)
+		var randiter=rng.randi_range(0,startpoints.size()-1)
 		if(startpoints.size()==0):
 			print("Can't Add more Rivers")
 			break
 			
-		if RiverSource(startpoints[randiter].x,startpoints[randiter].y):
-			i+=1
-			print("New River at ",startpoints[randiter])
-			#startpoints = verify_startpoints(startpoints)
+		#if RiverSource_AStar(int(startpoints[randiter].x),int(startpoints[randiter].y)):
+		RiverSource(int(startpoints[randiter].x),int(startpoints[randiter].y))
+		i+=1
+		print("New River at ",startpoints[randiter])
+		startpoints = verify_startpoints(startpoints)
 			#startpoints=get_potential_sources()
 			
-		startpoints.remove(randiter)
