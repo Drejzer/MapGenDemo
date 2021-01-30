@@ -146,7 +146,7 @@ func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
 				i.wait_to_finish()
 		
 
-func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2=Vector2(0,0), difference=1, lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves=3):
+func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600,difference:float=1.0):
 	map=[]
 	var osn = OpenSimplexNoise.new()
 	osn.seed=layer_seed
@@ -162,7 +162,7 @@ func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600, offset:Vector2
 			map[x].append(osn.get_noise_2d(x+offset.x,y+offset.y)*difference)
 			
 
-
+#not working, maybe some other time
 func Erode(cutoff:float,iterations:int=1,strength:float=0.01):
 	var rng=RandomNumberGenerator.new()
 	rng.set_seed(layer_seed)

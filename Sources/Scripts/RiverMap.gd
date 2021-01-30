@@ -20,14 +20,22 @@ func RiverSource(x,y):
 	var riverhead = Vector2(x,y)
 	riv.push_back(riverhead)
 	var depth=0
+	var dirs=[]
 	while map[riverhead.x][riverhead.y]>-1 && map[riverhead.x][riverhead.y]<1:
-		var dirs=[]
-		dirs.push_back(Vector2((int(riverhead.x)+world_x_size+1)%world_x_size,int(riverhead.y)))
+		var tmp =Vector2((int(riverhead.x)+world_x_size+1)%world_x_size,int(riverhead.y))
+		if !dirs.has(tmp):
+			dirs.push_front(tmp)
 		if int(riverhead.y) > 0:
-			dirs.push_back(Vector2(int(riverhead.x),riverhead.y-1))
-		dirs.push_back(Vector2((int(riverhead.x)+world_x_size-1)%world_x_size,riverhead.y))
+			tmp=Vector2(int(riverhead.x),riverhead.y-1)
+			if !dirs.has(tmp):
+				dirs.push_front(tmp)
+		tmp=Vector2((int(riverhead.x)+world_x_size-1)%world_x_size,riverhead.y)
+		if !dirs.has(tmp):
+			dirs.push_front(tmp)
 		if int(riverhead.y)<world_y_size-1:
-			dirs.push_back(Vector2(riverhead.x,riverhead.y+1))
+			tmp=Vector2(riverhead.x,riverhead.y+1)
+			if !dirs.has(tmp):
+				dirs.push_front(tmp)
 		dirs.sort_custom(self,"hsort")
 		while riv.has(dirs[0]):
 			dirs.remove(0)
@@ -38,21 +46,25 @@ func RiverSource(x,y):
 			#riv.remove(riv.size()-1)
 			riv.push_front(riverhead)
 			riverhead = riv[riv.size()-1-depth]
+			if depth>2:
+				depth=0
+				break
 		elif terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(riverhead.x)][int(riverhead.y)]:
 			var prev = riv[riv.size()-1]
-			if terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(prev.x)][int(prev.y)]:
-				depth+=1
-				riv.push_front(riverhead)
-				riverhead = riv[riv.size()-1-depth]
+			#if terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(prev.x)][int(prev.y)]:
+			depth+=1
+			if depth>5:
+				break
 			terr.map[int(riverhead.x)][int(riverhead.y)]=terr.map[int(dirs[0].x)][int(dirs[0].y)]
 			riv.push_back(Vector2(riverhead.x,riverhead.y))
+			terr.map[int(dirs[0].x)][int(dirs[0].y)]-=0.0001
 			riverhead=dirs[0]
-			terr.map[int(riverhead.x)][int(riverhead.y)]-=0.0001
-			depth=0
+			
 		else:
 			riv.push_back(Vector2(riverhead.x,riverhead.y))
 			riverhead=dirs[0]
-			depth=0
+			depth-=1
+			clamp(depth,0,5)
 	for r in riv:
 		map[int(r.x)][int(r.y)]=1
 
