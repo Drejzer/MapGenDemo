@@ -28,24 +28,4 @@ func _process(delta: float):
 		speed=16
 	if Input.is_key_pressed(KEY_F):
 		speed+=8
-	if Input.is_key_pressed(KEY_SPACE):
-		get_parent()._ready()
 	position=Vector2(self.position.x,clamp(self.position.y,0,barrier_y))
-
-func _on_HeightMap_ready() -> void:
-	var tmp = get_parent().get_node("World")
-	barrier_x = (tmp.world_x_size-1)*8
-	barrier_y = (tmp.world_y_size-1)*8
-	var k=get_child(0)
-	self.position=Vector2(tmp.world_x_size/2,tmp.world_y_size/2)
-	k.limit_right=barrier_x+5
-	k.limit_bottom=barrier_y+5
-	if position.x>barrier_x:
-		position.x=barrier_x-1
-	elif position.x < 0:
-		position.x=1
-	if position.y>barrier_y:
-		position.y=barrier_y-1
-	elif position.y < 0:
-		position.y=1
-	#print(barrier_x,barrier_y)	

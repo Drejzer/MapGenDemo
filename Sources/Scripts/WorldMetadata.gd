@@ -7,7 +7,8 @@ func make_world(args=[400]):
 	rng.seed=world_seed
 	print(world_seed," ",rng.seed)
 	primaryLayers[0].layer_seed=rng.randi()
-	primaryLayers[0].GenerateCylindricHeightMap_OpenSimplex(args[0],Vector3(-1,15,-10),2.0,0.5,128.0,4)
+	#primaryLayers[0].GenerateCylindricHeightMap_OpenSimplex(args[0],Vector3(-1,15,-10),2.0,0.5,128.0,4)
+	primaryLayers[0].GenerateCylindricHeightMap_Plasma(9)
 	world_x_size=primaryLayers[0].world_x_size
 	world_y_size=primaryLayers[0].world_y_size
 	for l in range(primaryLayers.size()):

@@ -1,13 +1,13 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
-
+onready var par: = get_parent()
 
 func Generate():
 	
 	map=[]
 	
-	world_x_size=get_parent().world_x_size
-	world_y_size=get_parent().world_y_size
+	world_x_size=par.world_x_size
+	world_y_size=par.world_y_size
 	#layer_seed=get_parent().layer_seed
 	
 	

@@ -11,7 +11,7 @@ export var MountainThreshold=0.6
 export var ForestThreshold=0.5
 export var TemperatureHigh:float=30.0
 export var TemperatureLow:float=-30.0
-export var RiverCount=11
+export var RiverCount=24
 
 var rng
 

@@ -1,16 +1,14 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
 export var rivers=[]
-var astar = AStar.new()
+var astar:AStar
 var seapoints=[]
 
 var rng=RandomNumberGenerator.new()
-var par=get_parent()
-var terr
+onready var par: =get_parent()
+onready var terr: = par.get_node("HeightMap")
 	
-func _ready() -> void:
-	terr =get_parent().get_node("HeightMap")
-	par=get_parent()
+
 
 func hsort(a,b)->bool:
 	return terr.map[a.x][a.y]<terr.map[b.x][b.y]
@@ -100,51 +98,6 @@ func get_potential_sources()->Array:
 	return pot_src
 
 
-func gen_astar_connectivity(is_cylindrical=true):
-	for x in range(world_x_size):
-		for y in range(world_y_size):
-			if is_cylindrical:
-				if terr.map[x][y]>=par.SeaLevel:
-					if terr.map[(x+world_x_size+1)%world_x_size][y]<=terr.map[x][y]:
-						astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*y)
-					if terr.map[(x+world_x_size-1)%world_x_size][y]<=terr.map[x][y]:
-						astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*y)
-					if y<world_y_size-1:
-#						if terr.map[(x+world_x_size+1)%world_x_size][y+1]<=terr.map[x][y]:
-#							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y+1))
-#						if terr.map[(x+world_x_size-1)%world_x_size][y+1]<=terr.map[x][y]:
-#							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y+1))
-						if terr.map[(x+world_x_size)%world_x_size][y+1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y+1))
-					if y>0:
-#						if terr.map[(x+world_x_size+1)%world_x_size][y-1]<=terr.map[x][y]:
-#							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y-1))
-#						if terr.map[(x+world_x_size-1)%world_x_size][y-1]<=terr.map[x][y]:
-#							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y-1))
-						if terr.map[(x+world_x_size)%world_x_size][y-1]<=terr.map[x][y]:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y-1))
-				else:
-					if terr.map[(x+world_x_size+1)%world_x_size][y]<=par.SeaLevel:
-						astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*y)
-					if terr.map[(x+world_x_size-1)%world_x_size][y]<=par.SeaLevel:
-						astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*y)
-					if y<world_y_size-1:
-						if terr.map[(x+world_x_size+1)%world_x_size][y+1]<=par.SeaLevel:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y+1))
-						if terr.map[(x+world_x_size-1)%world_x_size][y+1]<=par.SeaLevel:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y+1))
-						if terr.map[(x+world_x_size)%world_x_size][y+1]<=par.SeaLevel:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y+1))
-					if y>0:
-						if terr.map[(x+world_x_size+1)%world_x_size][y-1]<=par.SeaLevel:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size+1)%world_x_size)+world_x_size*(y-1))
-						if terr.map[(x+world_x_size-1)%world_x_size][y-1]<=par.SeaLevel:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size-1)%world_x_size)+world_x_size*(y-1))
-						if terr.map[(x+world_x_size)%world_x_size][y-1]<=par.SeaLevel:
-							astar.connect_points(x+world_x_size*y,((x+world_x_size)%world_x_size)+world_x_size*(y-1))
-			else:
-				print_debug("notyetimplemented")
-	
 
 func verify_startpoints(sp)->Array:
 	var np = []

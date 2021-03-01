@@ -16,11 +16,11 @@ func fault_row_calc(args:Array):
 					map[x][y]-= 1.1
 		x+=1
 
-func GenerateHeightMap_plasma(depth:int=7,displace:float=110.0,roughness:float=1.0):
+func GenerateHeightMap_Plasma(depth:int=7,displace:float=110.0,roughness:float=1.0):
 	world_x_size=int(pow(2,depth))+1
 	world_y_size=world_x_size
 	var rng = RandomNumberGenerator.new()
-	rng.randomize()
+	rng.seed=layer_seed
 	map=[]
 	for i in range(world_x_size):
 		map.append([])
@@ -47,33 +47,33 @@ func GenerateHeightMap_plasma(depth:int=7,displace:float=110.0,roughness:float=1
 						var after_y= far_y+stepsize/2
 						
 						if x==0:
-							map[x][srod_y]=(map[srod_x][srod_y]+map[x][y]+map[x][far_y])/3+rng.randf_range(-displace,displace)
+							map[x][srod_y]=(map[srod_x][srod_y]+map[x][y]+map[x][far_y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[x][srod_y]=(map[srod_x][srod_y]+map[x][y]+map[x][far_y]+map[before_x][srod_y])/4+rng.randf_range(-displace,displace)
+							map[x][srod_y]=(map[srod_x][srod_y]+map[x][y]+map[x][far_y]+map[before_x][srod_y])/4#+rng.randf_range(-displace,displace)
 						
 						if y==0:
-							map[srod_x][y]=(map[srod_x][srod_y]+map[x][y]+map[far_x][y])/3+rng.randf_range(-displace,displace)
+							map[srod_x][y]=(map[srod_x][srod_y]+map[x][y]+map[far_x][y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[srod_x][y]=(map[srod_x][srod_y]+map[x][y]+map[far_x][y]+map[srod_x][before_y])/4+rng.randf_range(-displace,displace)
+							map[srod_x][y]=(map[srod_x][srod_y]+map[x][y]+map[far_x][y]+map[srod_x][before_y])/4#+rng.randf_range(-displace,displace)
 						
 						if far_x==world_x_size-1:
-							map[far_x][srod_y]=(map[srod_x][srod_y]+map[far_x][y]+map[far_x][far_y])/3+rng.randf_range(-displace,displace)
+							map[far_x][srod_y]=(map[srod_x][srod_y]+map[far_x][y]+map[far_x][far_y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[far_x][srod_y]=(map[srod_x][srod_y]+map[far_x][y]+map[far_x][far_y]+map[after_x][srod_y])/4+rng.randf_range(-displace,displace)
+							map[far_x][srod_y]=(map[srod_x][srod_y]+map[far_x][y]+map[far_x][far_y]+map[after_x][srod_y])/4#+rng.randf_range(-displace,displace)
 						
 						if far_y==world_y_size-1:
-							map[srod_x][far_y]=(map[srod_x][srod_y]+map[x][far_y]+map[far_x][far_y])/3+rng.randf_range(-displace,displace)
+							map[srod_x][far_y]=(map[srod_x][srod_y]+map[x][far_y]+map[far_x][far_y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[srod_x][far_y]=(map[srod_x][srod_y]+map[x][far_y]+map[far_x][far_y]+map[srod_x][after_y])/4+rng.randf_range(-displace,displace)
+							map[srod_x][far_y]=(map[srod_x][srod_y]+map[x][far_y]+map[far_x][far_y]+map[srod_x][after_y])/4#+rng.randf_range(-displace,displace)
 		stepsize/=2
 		displace*=pow(2,-roughness)
 	pass
 
-func GenerateCylindricHeightMap_plasma(depth:int=7,displace:float=110.0,roughness:float=1.0):
+func GenerateCylindricHeightMap_Plasma(depth:int=7,displace:float=1.0,roughness:float=1.1):
 	world_x_size=int(pow(2,depth))+1
 	world_y_size=world_x_size
 	var rng = RandomNumberGenerator.new()
-	rng.randomize()
+	rng.seed=layer_seed
 	map=[]
 	for i in range(world_x_size):
 		map.append([])
@@ -81,38 +81,41 @@ func GenerateCylindricHeightMap_plasma(depth:int=7,displace:float=110.0,roughnes
 			map[i].append(0.0)
 	var stepsize=int(pow(2,depth))
 	while stepsize>1:
+		#Diamond Step
 		for x in range(0,world_x_size,stepsize):
+			if x+stepsize<world_x_size:
 				for y in range(0,world_y_size,stepsize):
 					if y+stepsize<world_y_size:
 						map[((x+x+stepsize)/2)%world_x_size][(y+y+stepsize)/2]=rng.randf_range(-displace,displace)+(map[x%world_x_size][y]+map[x%world_x_size][y+stepsize]+map[(stepsize+x)%world_x_size][stepsize+y]+map[(stepsize+x)%world_x_size][y])/4.0
+		#Square step
 		for x in range(0,world_x_size,stepsize):
+			if x+stepsize<world_x_size:
 				for y in range(0,world_y_size,stepsize):
 					if y+stepsize<world_y_size:
-						var srod_x=(x+x+stepsize)/2
-						var srod_y=(y+y+stepsize)/2
 						var far_x=x+stepsize
 						var far_y=y+stepsize
+						var srod_x=(x+far_x)/2
+						var srod_y=(y+far_y)/2
 						var before_x= x-stepsize/2
 						var before_y= y-stepsize/2
 						var after_x=far_x+stepsize/2
 						var after_y= far_y+stepsize/2
 						
-						map[x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[x%world_x_size][far_y]+map[(world_x_size+before_x)%world_x_size][srod_y])/4+rng.randf_range(-displace,displace)
+						map[(x+world_x_size)%world_x_size][srod_y]=(map[(srod_x+world_x_size)%world_x_size][srod_y]+map[(x+world_x_size)%world_x_size][y]+map[(x+world_x_size)%world_x_size][far_y]+map[(world_x_size+before_x)%world_x_size][srod_y])/4#+rng.randf_range(-displace,displace)
 						
 						if y==0:
-							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y])/3#+rng.randf_range(-displace,displace)
+							map[(srod_x+world_x_size)%world_x_size][y]=(map[(srod_x+world_x_size)%world_x_size][srod_y]+map[(x+world_x_size)%world_x_size][y]+map[(far_x+world_x_size)%world_x_size][y])/3#+rng.randf_range(-displace,displace)
 						else:
 							map[srod_x%world_x_size][y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][y]+map[far_x%world_x_size][y]+map[srod_x%world_x_size][before_y])/4#+rng.randf_range(-displace,displace)
 						
-						map[far_x%world_x_size][srod_y]=(map[srod_x%world_x_size][srod_y]+map[far_x%world_x_size][y]+map[far_x%world_x_size][far_y]+map[after_x%world_x_size][srod_y])/4#+rng.randf_range(-displace,displace)
+						map[(far_x+world_x_size)%world_x_size][srod_y]=(map[(srod_x+world_x_size)%world_x_size][srod_y]+map[(far_x+world_x_size)%world_x_size][y]+map[(far_x+world_x_size)%world_x_size][far_y]+map[(after_x+world_x_size)%world_x_size][srod_y])/4#+rng.randf_range(-displace,displace)
 						
 						if far_y==world_y_size-1:
-							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y])/3#+rng.randf_range(-displace,displace)
+							map[(srod_x+world_x_size)%world_x_size][far_y]=(map[(srod_x+world_x_size)%world_x_size][srod_y]+map[(x+world_x_size)%world_x_size][far_y]+map[(far_x+world_x_size)%world_x_size][far_y])/3#+rng.randf_range(-displace,displace)
 						else:
-							map[srod_x%world_x_size][far_y]=(map[srod_x%world_x_size][srod_y]+map[x%world_x_size][far_y]+map[far_x%world_x_size][far_y]+map[srod_x%world_x_size][after_y])/4#+rng.randf_range(-displace,displace)
+							map[(srod_x+world_x_size)%world_x_size][far_y]=(map[(srod_x+world_x_size)%world_x_size][srod_y]+map[(x+world_x_size)%world_x_size][far_y]+map[(far_x+world_x_size)%world_x_size][far_y]+map[(srod_x+world_x_size)%world_x_size][after_y])/4#+rng.randf_range(-displace,displace)
 		stepsize/=2
 		displace*=pow(2,-roughness)
-	pass
 
 
 func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
@@ -120,7 +123,7 @@ func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
 	world_y_size=y_size
 	print("1",OS.get_time())
 	var rng = RandomNumberGenerator.new()
-	rng.randomize()
+	rng.seed=layer_seed
 	map=[]
 	for i in range(world_x_size):
 		map.append([])
@@ -163,44 +166,44 @@ func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600,difference:floa
 			
 
 #not working, maybe some other time
-func Erode(cutoff:float,iterations:int=1,strength:float=0.01):
-	var rng=RandomNumberGenerator.new()
-	rng.set_seed(layer_seed)
-	for _i in range(iterations):
-		#var drx=rng.randi_range(0,world_x_size-1)
-		#var dry=rng.randi_range(0,world_y_size-1)
-		for drx in range(world_x_size):
-			for dry in range(world_y_size):
-				var drop = Vector3(drx,dry,0)
-				while map[drop.x][drop.y]>0.0:
-					if map[drop.x][drop.y]>=cutoff:
-						map[drop.x][drop.y]-=strength
-					elif map[drop.x][drop.y]<cutoff*0.5:
-						map[drop.x][drop.y]-=strength*0.5
-					else:
-						map[drop.x][drop.y]+=strength*0.2
-					drop.z=map[drop.x][drop.y]
-					var newdrop = drop
-					if newdrop.y > 0.0:
-						if map[(world_x_size+int(drop.x-1))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
-							newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
-						if  map[(world_x_size+int(drop.x))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
-							newdrop=Vector3((world_x_size+int(drop.x))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
-						if  map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
-							newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
-					if map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y))%world_y_size]<=newdrop.z:
-						newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y))%world_y_size,newdrop.z)
-					if newdrop.y<world_y_size-1:
-						if map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
-							newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
-						if map[(world_x_size+int(drop.x))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
-							newdrop=Vector3((world_x_size+int(drop.x))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
-						if map[(world_x_size+int(drop.x-1))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
-							newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
-					if map[(int(drop.x-1))%world_x_size][(int(drop.y))%world_y_size]<=newdrop.z:
-						newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y))%world_y_size,newdrop.z)
-					if newdrop == drop:
-						break
+#func Erode(cutoff:float,iterations:int=1,strength:float=0.01):
+#	var rng=RandomNumberGenerator.new()
+#	rng.set_seed(layer_seed)
+#	for _i in range(iterations):
+#		#var drx=rng.randi_range(0,world_x_size-1)
+#		#var dry=rng.randi_range(0,world_y_size-1)
+#		for drx in range(world_x_size):
+#			for dry in range(world_y_size):
+#				var drop = Vector3(drx,dry,0)
+#				while map[drop.x][drop.y]>0.0:
+#					if map[drop.x][drop.y]>=cutoff:
+#						map[drop.x][drop.y]-=strength
+#					elif map[drop.x][drop.y]<cutoff*0.5:
+#						map[drop.x][drop.y]-=strength*0.5
+#					else:
+#						map[drop.x][drop.y]+=strength*0.2
+#					drop.z=map[drop.x][drop.y]
+#					var newdrop = drop
+#					if newdrop.y > 0.0:
+#						if map[(world_x_size+int(drop.x-1))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
+#							newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
+#						if  map[(world_x_size+int(drop.x))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
+#							newdrop=Vector3((world_x_size+int(drop.x))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
+#						if  map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y-1))%world_y_size]<=newdrop.z:
+#							newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y-1))%world_y_size,newdrop.z)
+#					if map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y))%world_y_size]<=newdrop.z:
+#						newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y))%world_y_size,newdrop.z)
+#					if newdrop.y<world_y_size-1:
+#						if map[(world_x_size+int(drop.x+1))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
+#							newdrop=Vector3((world_x_size+int(drop.x+1))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
+#						if map[(world_x_size+int(drop.x))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
+#							newdrop=Vector3((world_x_size+int(drop.x))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
+#						if map[(world_x_size+int(drop.x-1))%world_x_size][(int(drop.y+1))%world_y_size]<=newdrop.z:
+#							newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y+1))%world_y_size,newdrop.z)
+#					if map[(int(drop.x-1))%world_x_size][(int(drop.y))%world_y_size]<=newdrop.z:
+#						newdrop=Vector3((world_x_size+int(drop.x-1))%world_x_size,(int(drop.y))%world_y_size,newdrop.z)
+#					if newdrop == drop:
+#						break
 
 
 func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vector3(0,0,0), lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves:int=4):
