@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sources/Scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sources/Scripts/CameraScript.gd" type="Script" id=2]
+[ext_resource path="res://Sources/Scenes/WorldView_World.gd" type="Script" id=3]
 
 [node name="WorldView" type="Node"]
 
 [node name="World" parent="." instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource( 2 )
@@ -38,7 +40,6 @@ __meta__ = {
 }
 
 [node name="World" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -111,11 +112,55 @@ margin_bottom = 108.0
 
 [node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer4"]
 margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 19.0
+text = "Sea Level"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer4"]
+margin_left = 64.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -0.9
+max_value = 0.8
+step = 0.001
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
+margin_top = 112.0
+margin_right = 1016.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer9"]
+margin_top = 5.0
+margin_right = 127.0
+margin_bottom = 19.0
+text = "Mountain Threshold"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer9"]
+margin_left = 131.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.8
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
+margin_top = 140.0
+margin_right = 1016.0
+margin_bottom = 164.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer8"]
+margin_top = 5.0
 margin_right = 107.0
 margin_bottom = 19.0
 text = "Forest Threshold"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer4"]
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer8"]
 margin_left = 111.0
 margin_right = 1016.0
 margin_bottom = 24.0
@@ -126,69 +171,76 @@ min_value = 1.0
 value = 25.0
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
-margin_top = 112.0
-margin_right = 1016.0
-margin_bottom = 136.0
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer5"]
-margin_top = 5.0
-margin_right = 39.0
-margin_bottom = 19.0
-text = "Rivers"
-
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer5"]
-margin_left = 43.0
-margin_right = 1016.0
-margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
-size_flags_horizontal = 3
-min_value = 1.0
-value = 25.0
-
-[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
-margin_top = 140.0
-margin_right = 1016.0
-margin_bottom = 164.0
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer6"]
-margin_top = 5.0
-margin_right = 39.0
-margin_bottom = 19.0
-text = "Rivers"
-
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer6"]
-margin_left = 43.0
-margin_right = 1016.0
-margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
-size_flags_horizontal = 3
-min_value = 1.0
-value = 25.0
-
-[node name="HBoxContainer7" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
 margin_top = 168.0
 margin_right = 1016.0
 margin_bottom = 192.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer7"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer5"]
 margin_top = 5.0
-margin_right = 39.0
+margin_right = 85.0
 margin_bottom = 19.0
-text = "Rivers"
+text = "Ice threshold"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer7"]
-margin_left = 43.0
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer5"]
+margin_left = 89.0
 margin_right = 1016.0
 margin_bottom = 24.0
 hint_tooltip = "Changes th amount of rivers generated.
 Depending on the terrain, there might be fewer rivers than specified."
 size_flags_horizontal = 3
-min_value = 1.0
-value = 25.0
+min_value = -1.0
+max_value = 1.0
+step = 0.001
+value = -0.6
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
+margin_top = 196.0
+margin_right = 1016.0
+margin_bottom = 220.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer6"]
+margin_top = 5.0
+margin_right = 114.0
+margin_bottom = 19.0
+text = "TEmperature High"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer6"]
+margin_left = 118.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.1
+value = 30.0
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/World"]
+margin_top = 224.0
+margin_right = 1016.0
+margin_bottom = 248.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer7"]
+margin_top = 5.0
+margin_right = 111.0
+margin_bottom = 19.0
+text = "Temperature Low"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/World/HBoxContainer7"]
+margin_left = 115.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.1
+value = -30.0
 
 [node name="Terrain" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -317,15 +369,19 @@ margin_bottom = 154.0
 
 [node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Terrain/HBoxContainer5"]
 margin_top = 5.0
-margin_right = 69.0
+margin_right = 41.0
 margin_bottom = 19.0
-text = "Layer Seed"
+text = "Period"
 
 [node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Terrain/HBoxContainer5"]
-margin_left = 73.0
+margin_left = 45.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Terrain"]
 margin_top = 158.0
@@ -334,15 +390,182 @@ margin_bottom = 182.0
 
 [node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Terrain/HBoxContainer6"]
 margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Terrain/HBoxContainer6"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
+
+[node name="Drainage" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer"]
+margin_top = 5.0
 margin_right = 69.0
 margin_bottom = 19.0
 text = "Layer Seed"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Terrain/HBoxContainer6"]
+[node name="LayerSeedVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer"]
 margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer/HBoxContainer"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer/HBoxContainer"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer/HBoxContainer"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label3" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer/HBoxContainer"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/VBoxContainer/HBoxContainer"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer3"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer4"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer4"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer5"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer5"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Drainage"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer6"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Drainage/HBoxContainer6"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
 
 [node name="Temperature" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
 visible = false
@@ -353,21 +576,160 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
 margin_right = 1016.0
 margin_bottom = 24.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer2"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer"]
 margin_top = 5.0
 margin_right = 69.0
 margin_bottom = 19.0
 text = "Layer Seed"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer2"]
+[node name="LayerSeedVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer"]
 margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer/HBoxContainer"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer/HBoxContainer"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer/HBoxContainer"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label3" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer/HBoxContainer"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/VBoxContainer/HBoxContainer"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer3"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer4"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer4"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer5"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer5"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Temperature"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer6"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Temperature/HBoxContainer6"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
 
 [node name="Rainfall" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
 visible = false
@@ -378,21 +740,160 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
 margin_right = 1016.0
 margin_bottom = 24.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer3"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer"]
 margin_top = 5.0
 margin_right = 69.0
 margin_bottom = 19.0
 text = "Layer Seed"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer3"]
+[node name="LayerSeedVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer"]
 margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer/HBoxContainer"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer/HBoxContainer"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer/HBoxContainer"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label3" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer/HBoxContainer"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/VBoxContainer/HBoxContainer"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer3"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer4"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer4"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer5"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer5"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Rainfall"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer6"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Rainfall/HBoxContainer6"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
 
 [node name="Vegetation" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
 visible = false
@@ -403,21 +904,160 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
 margin_right = 1016.0
 margin_bottom = 24.0
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer4"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer"]
 margin_top = 5.0
 margin_right = 69.0
 margin_bottom = 19.0
 text = "Layer Seed"
 
-[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer4"]
+[node name="LayerSeedVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer"]
 margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer/HBoxContainer"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer/HBoxContainer"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer/HBoxContainer"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label3" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer/HBoxContainer"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZOffsetVal" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/VBoxContainer/HBoxContainer"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer3"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer4"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer4"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer5"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer5"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Control/VBoxContainer/TabContainer/Vegetation"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer6"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="SpinBox" type="SpinBox" parent="Control/VBoxContainer/TabContainer/Vegetation/HBoxContainer6"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
 
 [node name="Biomes" type="VBoxContainer" parent="Control/VBoxContainer/TabContainer"]
 visible = false
