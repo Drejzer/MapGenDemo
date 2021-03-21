@@ -1,13 +1,15 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
 export var rivers=[]
+export var river_source_Height:float
+export var river_source_Rain:float
+onready var par: =get_parent()
+onready var terr: = par.get_node("HeightMap")
+	
 var astar:AStar
 var seapoints=[]
 
 var rng=RandomNumberGenerator.new()
-onready var par: =get_parent()
-onready var terr: = par.get_node("HeightMap")
-	
 
 
 func hsort(a,b)->bool:
@@ -92,7 +94,7 @@ func get_potential_sources()->Array:
 	for x in range(world_x_size):
 		for y in range(world_y_size):
 			var gut=true
-			if (rain.map[x][y]>=0.75 or terr.map[x][y]>=par.MountainThreshold*0.8):
+			if (rain.map[x][y]>=river_source_Rain or terr.map[x][y]>=river_source_Height):
 				if gut:
 					pot_src.push_back(Vector2(x,y))
 	return pot_src
@@ -177,7 +179,7 @@ func get_coast_points():
 				seapoints.push_back(Vector2(x,y))
 
 
-func Generate():
+func Generate(args):
 	map=[]
 	rng.seed=layer_seed
 	rng.seed=rng.randi()

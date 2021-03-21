@@ -1,6 +1,6 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
-func Generate():
+func Generate(args):
 	map=[]
 	
 	var par = get_parent()
@@ -29,7 +29,6 @@ func Generate():
 		map.append([])
 	
 		for y in range(world_y_size):
-			var tmp_grad=(float(y)/float(world_y_size))*PI
 			var noiseval = osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)
 			noiseval=clamp(0.25*noiseval+0.25*tm.map[x][y]+0.5*rfm.map[x][y],0.0,2.0)
 			

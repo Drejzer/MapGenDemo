@@ -2,7 +2,7 @@ extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
 onready var par: = get_parent()
 
-func Generate():
+func Generate(args):
 	
 	map=[]
 	

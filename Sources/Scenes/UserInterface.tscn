@@ -1,0 +1,1270 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sources/Scripts/UserInterface.gd" type="Script" id=1]
+
+[node name="Interface" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="Generate" type="Button" parent="PauseMenu/HBoxContainer"]
+margin_right = 510.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Generate New World"
+
+[node name="Randomise" type="Button" parent="PauseMenu/HBoxContainer"]
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Randomise Seeds"
+
+[node name="TabContainer" type="TabContainer" parent="PauseMenu"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 576.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tab_align = 0
+use_hidden_tabs_for_min_size = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="World" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="WorldName" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldName"]
+margin_top = 5.0
+margin_right = 38.0
+margin_bottom = 19.0
+text = "Name"
+
+[node name="Value" type="LineEdit" parent="PauseMenu/TabContainer/World/WorldName"]
+margin_left = 42.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+placeholder_text = "World"
+
+[node name="WorldSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldSeed"]
+margin_top = 5.0
+margin_right = 31.0
+margin_bottom = 19.0
+text = "Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldSeed"]
+margin_left = 35.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -9.22337e+18
+max_value = 9.22337e+18
+
+[node name="WorldWidth" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 56.0
+margin_right = 1016.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldWidth"]
+margin_top = 5.0
+margin_right = 38.0
+margin_bottom = 19.0
+text = "Width"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldWidth"]
+margin_left = 42.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = 5.0
+max_value = 2048.0
+value = 600.0
+
+[node name="WorldHeight" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 84.0
+margin_right = 1016.0
+margin_bottom = 108.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldHeight"]
+margin_top = 5.0
+margin_right = 42.0
+margin_bottom = 19.0
+text = "Height"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldHeight"]
+margin_left = 46.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = 5.0
+max_value = 2048.0
+value = 400.0
+
+[node name="WorldRiverCount" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 112.0
+margin_right = 1016.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldRiverCount"]
+margin_top = 5.0
+margin_right = 39.0
+margin_bottom = 19.0
+text = "Rivers"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldRiverCount"]
+margin_left = 43.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = 1.0
+value = 16.0
+
+[node name="WorldSeaLevel" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 140.0
+margin_right = 1016.0
+margin_bottom = 164.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldSeaLevel"]
+margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 19.0
+text = "Sea Level"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldSeaLevel"]
+margin_left = 64.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -0.9
+max_value = 0.8
+step = 0.001
+
+[node name="WorldMountainThreshold" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 168.0
+margin_right = 1016.0
+margin_bottom = 192.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldMountainThreshold"]
+margin_top = 5.0
+margin_right = 127.0
+margin_bottom = 19.0
+text = "Mountain Threshold"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldMountainThreshold"]
+margin_left = 131.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.8
+
+[node name="WorldForestThreshold" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 196.0
+margin_right = 1016.0
+margin_bottom = 220.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldForestThreshold"]
+margin_top = 5.0
+margin_right = 107.0
+margin_bottom = 19.0
+text = "Forest Threshold"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldForestThreshold"]
+margin_left = 111.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = 0.25
+max_value = 2.0
+step = 0.001
+value = 0.5
+
+[node name="WorldIceThreshold" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 224.0
+margin_right = 1016.0
+margin_bottom = 248.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldIceThreshold"]
+margin_top = 5.0
+margin_right = 87.0
+margin_bottom = 19.0
+text = "Ice Threshold"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldIceThreshold"]
+margin_left = 91.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 0.0
+step = 0.001
+value = -0.6
+
+[node name="WorldTemperatureHigh" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 252.0
+margin_right = 1016.0
+margin_bottom = 276.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldTemperatureHigh"]
+margin_top = 5.0
+margin_right = 115.0
+margin_bottom = 19.0
+text = "Temperature High"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldTemperatureHigh"]
+margin_left = 119.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.1
+value = 30.0
+
+[node name="WorldTemperatureLow" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
+margin_top = 280.0
+margin_right = 1016.0
+margin_bottom = 304.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/World/WorldTemperatureLow"]
+margin_top = 5.0
+margin_right = 111.0
+margin_bottom = 19.0
+text = "Temperature Low"
+
+[node name="Vaule" type="SpinBox" parent="PauseMenu/TabContainer/World/WorldTemperatureLow"]
+margin_left = 115.0
+margin_right = 1016.0
+margin_bottom = 24.0
+hint_tooltip = "Changes th amount of rivers generated.
+Depending on the terrain, there might be fewer rivers than specified."
+size_flags_horizontal = 3
+min_value = -1000.0
+max_value = 1000.0
+step = 0.1
+value = -30.0
+
+[node name="Terrain" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="TerrainSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainSeed"]
+margin_top = 5.0
+margin_right = 69.0
+margin_bottom = 19.0
+text = "Layer Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainSeed"]
+margin_left = 73.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+
+[node name="TerrainOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainOffset"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coordinates" type="HBoxContainer" parent="PauseMenu/TabContainer/Terrain/TerrainOffset"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XValue" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="Label2" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YValue" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+step = 0.01
+
+[node name="Label3" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZValue" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="TerrainLacunarity" type="HBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainLacunarity"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainLacunarity"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 2.0
+
+[node name="TerrainPersistance" type="HBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainPersistance"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainPersistance"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
+value = 0.5
+
+[node name="TerrainPeriod" type="HBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainPeriod"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainPeriod"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 64.0
+
+[node name="TerrainOctaves" type="HBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Terrain/TerrainOctaves"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Terrain/TerrainOctaves"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 9.0
+value = 4.0
+
+[node name="Rainfall" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RainfallSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallSeed"]
+margin_top = 5.0
+margin_right = 69.0
+margin_bottom = 19.0
+text = "Layer Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallSeed"]
+margin_left = 73.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+
+[node name="RainfallOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coordinates" type="HBoxContainer" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XValue" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="Label2" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YValue" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="Label3" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZValue" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="RainfallLacunarity" type="HBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallLacunarity"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallLacunarity"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="RainfallPersistance" type="HBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallPersistance"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallPersistance"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 5.0
+step = 0.001
+value = 0.5
+
+[node name="RainfallPeriod" type="HBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallPeriod"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallPeriod"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="RainfallOctaves" type="HBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rainfall/RainfallOctaves"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rainfall/RainfallOctaves"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 2.0
+
+[node name="Temperature" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="TemperatureSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureSeed"]
+margin_top = 5.0
+margin_right = 69.0
+margin_bottom = 19.0
+text = "Layer Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperatureSeed"]
+margin_left = 73.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+
+[node name="TemperatureOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coordinates" type="HBoxContainer" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XValue" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label2" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YValue" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label3" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZValue" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="TemperatureLacunarity" type="HBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureLacunarity"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperatureLacunarity"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="TemperaturePersistance" type="HBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperaturePersistance"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperaturePersistance"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 0.5
+
+[node name="TemperaturePeriod" type="HBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperaturePeriod"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperaturePeriod"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 200.0
+
+[node name="TemperatureOctaves" type="HBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Temperature/TemperatureOctaves"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Temperature/TemperatureOctaves"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 2.0
+
+[node name="Drainage" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="DrainageSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageSeed"]
+margin_top = 5.0
+margin_right = 69.0
+margin_bottom = 19.0
+text = "Layer Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainageSeed"]
+margin_left = 73.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+
+[node name="DrainageOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageOffset"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coordinates" type="HBoxContainer" parent="PauseMenu/TabContainer/Drainage/DrainageOffset"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XValue" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="Label2" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YValue" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="Label3" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZValue" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -128.0
+max_value = 128.0
+
+[node name="DrainageLacuanrity" type="HBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageLacuanrity"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainageLacuanrity"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="DrainagePersistance" type="HBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainagePersistance"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainagePersistance"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.001
+value = 0.95
+
+[node name="DrainagePeriod" type="HBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainagePeriod"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainagePeriod"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="DrainageOctaves" type="HBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Drainage/DrainageOctaves"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Drainage/DrainageOctaves"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
+
+[node name="Rivers" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="RiverSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/Rivers"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rivers/RiverSeed"]
+margin_top = 5.0
+margin_right = 69.0
+margin_bottom = 19.0
+text = "Layer Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rivers/RiverSeed"]
+margin_left = 73.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+
+[node name="RiverSHeight" type="HBoxContainer" parent="PauseMenu/TabContainer/Rivers"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rivers/RiverSHeight"]
+margin_top = 5.0
+margin_right = 125.0
+margin_bottom = 19.0
+text = "River Source Height"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rivers/RiverSHeight"]
+margin_left = 129.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 2.0
+step = 0.001
+value = 0.8
+
+[node name="RiverSRain" type="HBoxContainer" parent="PauseMenu/TabContainer/Rivers"]
+margin_top = 56.0
+margin_right = 1016.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Rivers/RiverSRain"]
+margin_top = 5.0
+margin_right = 110.0
+margin_bottom = 19.0
+text = "River Source Rain"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Rivers/RiverSRain"]
+margin_left = 114.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 2.0
+step = 0.001
+value = 0.75
+
+[node name="Vegetation" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VegetationSeed" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
+margin_right = 1016.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationSeed"]
+margin_top = 5.0
+margin_right = 69.0
+margin_bottom = 19.0
+text = "Layer Seed"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationSeed"]
+margin_left = 73.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -2.14748e+09
+max_value = 2.14748e+09
+
+[node name="VegetationOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
+margin_top = 28.0
+margin_right = 1016.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset"]
+margin_right = 1016.0
+margin_bottom = 14.0
+text = "Offset:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coordinates" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset"]
+margin_top = 18.0
+margin_right = 1016.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
+margin_top = 5.0
+margin_right = 16.0
+margin_bottom = 19.0
+text = "X: "
+
+[node name="XValue" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
+margin_left = 20.0
+margin_right = 336.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label2" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 19.0
+text = "Y: "
+
+[node name="YValue" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
+margin_left = 359.0
+margin_right = 675.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="Label3" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
+margin_left = 679.0
+margin_top = 5.0
+margin_right = 695.0
+margin_bottom = 19.0
+text = "Z: "
+
+[node name="ZValue" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
+margin_left = 699.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = -1e+06
+max_value = 1e+06
+
+[node name="VegetationLacunarity" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
+margin_top = 74.0
+margin_right = 1016.0
+margin_bottom = 98.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationLacunarity"]
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 19.0
+text = "Lacunarity"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationLacunarity"]
+margin_left = 69.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+step = 0.01
+value = 1.0
+
+[node name="VegetationPersistance" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
+margin_top = 102.0
+margin_right = 1016.0
+margin_bottom = 126.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationPersistance"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 19.0
+text = "Persistance"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationPersistance"]
+margin_left = 78.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+max_value = 5.0
+value = 1.0
+
+[node name="VegetationPeriod" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
+margin_top = 130.0
+margin_right = 1016.0
+margin_bottom = 154.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationPeriod"]
+margin_top = 5.0
+margin_right = 41.0
+margin_bottom = 19.0
+text = "Period"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationPeriod"]
+margin_left = 45.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 500.0
+step = 0.01
+value = 100.0
+
+[node name="VegetationOctaves" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
+margin_top = 158.0
+margin_right = 1016.0
+margin_bottom = 182.0
+
+[node name="Label" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOctaves"]
+margin_top = 5.0
+margin_right = 52.0
+margin_bottom = 19.0
+text = "Octaves"
+
+[node name="Value" type="SpinBox" parent="PauseMenu/TabContainer/Vegetation/VegetationOctaves"]
+margin_left = 56.0
+margin_right = 1016.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 8.0
+value = 3.0
+
+[node name="Quit" type="Button" parent="PauseMenu"]
+margin_top = 580.0
+margin_right = 1024.0
+margin_bottom = 600.0
+text = "Quit"
+[connection signal="pressed" from="PauseMenu/HBoxContainer/Generate" to="." method="_on_Generate_pressed"]
+[connection signal="pressed" from="PauseMenu/HBoxContainer/Randomise" to="." method="_on_Randomise_pressed"]
+[connection signal="text_changed" from="PauseMenu/TabContainer/World/WorldName/Value" to="." method="_on_value_changed" binds= [ "WorldName" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldSeed/Value" to="." method="_on_value_changed" binds= [ "WorldSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldWidth/Value" to="." method="_on_value_changed" binds= [ "WorldWidth" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldHeight/Value" to="." method="_on_value_changed" binds= [ "WorldHeight" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldRiverCount/Value" to="." method="_on_value_changed" binds= [ "Rivercount" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldSeaLevel/Value" to="." method="_on_value_changed" binds= [ "SeaLevel" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldMountainThreshold/Value" to="." method="_on_value_changed" binds= [ "MountainThreshold" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldForestThreshold/Value" to="." method="_on_value_changed" binds= [ "ForestThreshold" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldIceThreshold/Value" to="." method="_on_value_changed" binds= [ "IceThreshold" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldTemperatureHigh/Value" to="." method="_on_value_changed" binds= [ "TemperatureHigh" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/World/WorldTemperatureLow/Vaule" to="." method="_on_value_changed" binds= [ "TeperatureLow" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainSeed/Value" to="." method="_on_value_changed" binds= [ "TerrainSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates/XValue" to="." method="_on_value_changed" binds= [ "TerrainXOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates/YValue" to="." method="_on_value_changed" binds= [ "TerrainYOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainOffset/Coordinates/ZValue" to="." method="_on_value_changed" binds= [ "TerrainZOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainLacunarity/Value" to="." method="_on_value_changed" binds= [ "TerrainLacunarity" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainPersistance/Value" to="." method="_on_value_changed" binds= [ "TerrainPersistance" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainPeriod/Value" to="." method="_on_value_changed" binds= [ "TerrainPeriod" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Terrain/TerrainOctaves/Value" to="." method="_on_value_changed" binds= [ "TerrainOctaves" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallSeed/Value" to="." method="_on_value_changed" binds= [ "RainfallSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates/XValue" to="." method="_on_value_changed" binds= [ "RainfallXOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates/YValue" to="." method="_on_value_changed" binds= [ "RainfallYOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallOffset/Coordinates/ZValue" to="." method="_on_value_changed" binds= [ "RainfallZOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallLacunarity/Value" to="." method="_on_value_changed" binds= [ "RainfallLacunarity" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallPersistance/Value" to="." method="_on_value_changed" binds= [ "RainfallPersistance" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallPeriod/Value" to="." method="_on_value_changed" binds= [ "RainfallPeriod" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rainfall/RainfallOctaves/Value" to="." method="_on_value_changed" binds= [ "RainfallOctaves" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperatureSeed/Value" to="." method="_on_value_changed" binds= [ "TemperatureSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates/XValue" to="." method="_on_value_changed" binds= [ "TemperatureXOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates/YValue" to="." method="_on_value_changed" binds= [ "TemperatureYOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperatureOffset/Coordinates/ZValue" to="." method="_on_value_changed" binds= [ "TemperatureZOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperatureLacunarity/Value" to="." method="_on_value_changed" binds= [ "TemperatureLacunarity" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperaturePersistance/Value" to="." method="_on_value_changed" binds= [ "TemperaturePersistance" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperaturePeriod/Value" to="." method="_on_value_changed" binds= [ "TemperaturePeriod" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Temperature/TemperatureOctaves/Value" to="." method="_on_value_changed" binds= [ "TemperatureOctaves" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainageSeed/Value" to="." method="_on_value_changed" binds= [ "DrainageSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates/XValue" to="." method="_on_value_changed" binds= [ "DrainageXOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates/YValue" to="." method="_on_value_changed" binds= [ "DrainageYOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainageOffset/Coordinates/ZValue" to="." method="_on_value_changed" binds= [ "DrainageZOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainageLacuanrity/Value" to="." method="_on_value_changed" binds= [ "DrainageLacunarity" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainagePersistance/Value" to="." method="_on_value_changed" binds= [ "DrainagePersistance" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainagePeriod/Value" to="." method="_on_value_changed" binds= [ "DrainagePeriod" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Drainage/DrainageOctaves/Value" to="." method="_on_value_changed" binds= [ "DrainageOctaves" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rivers/RiverSeed/Value" to="." method="_on_value_changed" binds= [ "RiverSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rivers/RiverSHeight/Value" to="." method="_on_value_changed" binds= [ "RiverSH" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Rivers/RiverSRain/Value" to="." method="_on_value_changed" binds= [ "RiverSR" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationSeed/Value" to="." method="_on_value_changed" binds= [ "VegetationSeed" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates/XValue" to="." method="_on_value_changed" binds= [ "VegetationXOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates/YValue" to="." method="_on_value_changed" binds= [ "VegetationYOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates/ZValue" to="." method="_on_value_changed" binds= [ "VegetationZOffset" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationLacunarity/Value" to="." method="_on_value_changed" binds= [ "VegetationLacunarity" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationPersistance/Value" to="." method="_on_value_changed" binds= [ "VegetationPersistance" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationPeriod/Value" to="." method="_on_value_changed" binds= [ "VegetationPeriod" ]]
+[connection signal="value_changed" from="PauseMenu/TabContainer/Vegetation/VegetationOctaves/Value" to="." method="_on_value_changed" binds= [ "VegetationOctaves" ]]
+[connection signal="pressed" from="PauseMenu/Quit" to="." method="_on_Quit_pressed"]

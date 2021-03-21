@@ -1,6 +1,9 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
 
+func Generate(args):
+	GenerateCylindricHeightMap_OpenSimplex()
+
 func fault_row_calc(args:Array):
 	var t_id=args[0]
 	var div=args[1]
@@ -206,7 +209,7 @@ func GenerateHeightMap_OpenSimplex(x_size:int=800,y_size:int=600,difference:floa
 #						break
 
 
-func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vector3(0,0,0), lacun:float=2.0,persist:float=0.5,period:float=64.0,octaves:int=4):
+func GenerateCylindricHeightMap_OpenSimplex():
 	map=[]
 	
 	var osn = OpenSimplexNoise.new()
@@ -216,8 +219,6 @@ func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vecto
 	osn.persistence = persist
 	osn.octaves = octaves
 	
-	world_y_size = y_size
-	world_x_size = int(1.75*y_size)
 	get_parent().world_x_size = world_x_size
 	get_parent().world_y_size = world_y_size
 	
@@ -225,7 +226,7 @@ func GenerateCylindricHeightMap_OpenSimplex(y_size:int=450, offset:Vector3=Vecto
 	
 	for x in range(world_x_size):
 		map.append([])
-		var deg = float(float(x)/float(world_x_size))*2*PI
+		var deg = float(float(x)/float(world_x_size))*2*PI+rotation
 		
 		for y in range(world_y_size):
 

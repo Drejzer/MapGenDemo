@@ -1,7 +1,7 @@
 extends "res://addons/MapGenTools/_WorldMetaLayer.gd"
 
 
-func Generate():
+func Generate(args):
 	map = []
 	
 	var osn = OpenSimplexNoise.new()

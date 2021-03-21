@@ -13,27 +13,21 @@ export var TemperatureHigh:float=30.0
 export var TemperatureLow:float=-30.0
 export var RiverCount=24
 
-var rng
+var rng:=RandomNumberGenerator.new()
 
 export var primaryLayers=[]
 export var secondaryLayers=[]
 
 func _ready() -> void:
-	rng=RandomNumberGenerator.new()
-	rng.seed=world_seed
 	primaryLayers=[]
 	secondaryLayers=[]
 	primaryLayers.append(get_node("HeightMap"))
 	primaryLayers.append(get_node("RainfallMap"))
-	primaryLayers.append(get_node("DrainageMap"))
 	primaryLayers.append(get_node("TemperatureMap"))
+	primaryLayers.append(get_node("DrainageMap"))
 	secondaryLayers.append(get_node("RiverMap"))
 	secondaryLayers.append(get_node("VegetationMap"))
 	secondaryLayers.append(get_node("BiomeMap"))
-
-
-	#SaveWorld()
-	
 
 func SaveWorld():
 	var file=File.new()
