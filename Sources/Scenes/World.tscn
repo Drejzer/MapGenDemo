@@ -15,21 +15,18 @@ script = ExtResource( 3 )
 world_x_size = 600
 world_y_size = 400
 MountainThreshold = 0.8
-ForestThreshold = 0.5
 RiverCount = 16
 
 [node name="HeightMap" type="Node" parent="."]
 script = ExtResource( 1 )
 world_x_size = 600
 world_y_size = 400
-offset = Vector3( 0, 0, 0 )
 period = 64.0
 octaves = 4
 rotation = 0.0
 
 [node name="RainfallMap" type="Node" parent="."]
 script = ExtResource( 5 )
-offset = Vector3( 0, 0, 0 )
 rotation = 0.0
 
 [node name="TemperatureMap" type="Node" parent="."]

@@ -1,11 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Sources/Scenes/World.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Sources/Scripts/CameraScript.gd" type="Script" id=2]
+[ext_resource path="res://Sources/Scripts/Walker.gd" type="Script" id=2]
 [ext_resource path="res://Sources/Scripts/WorldView_World.gd" type="Script" id=3]
 [ext_resource path="res://Sources/Scripts/WorldView.gd" type="Script" id=4]
 [ext_resource path="res://Sources/Scenes/UserInterface.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sources/Scripts/Options.gd" type="Script" id=6]
+[ext_resource path="res://Sources/Resources/OverlandSet.tres" type="TileSet" id=7]
+[ext_resource path="res://Sources/Scripts/TemperatureDisplay.gd" type="Script" id=8]
+[ext_resource path="res://icon.png" type="Texture" id=9]
+[ext_resource path="res://Sources/Scripts/BiomeDisplay.gd" type="Script" id=10]
+[ext_resource path="res://Sources/Scripts/TerrainDisplay.gd" type="Script" id=11]
+[ext_resource path="res://Sources/Scripts/RainfallDisplay.gd" type="Script" id=12]
+[ext_resource path="res://Sources/Scripts/VegetationDisplay.gd" type="Script" id=13]
+[ext_resource path="res://Sources/Resources/VegetationTiles.tres" type="TileSet" id=14]
+[ext_resource path="res://Sources/Resources/RainfallTiles.tres" type="TileSet" id=15]
 
 [node name="WorldView" type="Node"]
 script = ExtResource( 4 )
@@ -19,10 +28,8 @@ layer = 128
 [node name="Options" parent="Control" instance=ExtResource( 5 )]
 script = ExtResource( 6 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource( 2 )
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -56,6 +63,71 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label2" type="Label" parent="CanvasLayer/ColorRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -60.0
+margin_top = -40.0
+margin_right = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "..."
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TemperatureDisplay" type="TileMap" parent="."]
+visible = false
+z_index = 1
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 64
+format = 1
+script = ExtResource( 8 )
+
+[node name="BiomeDisplay" type="TileMap" parent="."]
+visible = false
+format = 1
+script = ExtResource( 10 )
+
+[node name="TerrainDisplay" type="TileMap" parent="."]
+tile_set = ExtResource( 7 )
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 11 )
+
+[node name="RainfallDisplay" type="TileMap" parent="."]
+visible = false
+tile_set = ExtResource( 15 )
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 12 )
+
+[node name="VegetationDisplay" type="TileMap" parent="."]
+visible = false
+tile_set = ExtResource( 14 )
+cell_size = Vector2( 8, 8 )
+format = 1
+script = ExtResource( 13 )
+
+[node name="Walker" type="Sprite" parent="."]
+z_index = 3
+texture = ExtResource( 9 )
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="Walker"]
+anchor_mode = 0
+current = true
+limit_left = -1
+limit_top = -1
 [connection signal="ui_generate_pressed" from="Control/Options" to="." method="_on_Options_ui_generate_pressed"]
 
 [editable path="World"]

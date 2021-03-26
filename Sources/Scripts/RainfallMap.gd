@@ -27,5 +27,5 @@ func Generate(args):
 	
 		for y in range(world_y_size):
 			#var tmp_grad=(float(y)/float(world_y_size))*PI
-			var noiseval = osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)
+			var noiseval = abs(osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z))
 			map[x].append((noiseval))

@@ -97,6 +97,7 @@ func get_potential_sources()->Array:
 			if (rain.map[x][y]>=river_source_Rain or terr.map[x][y]>=river_source_Height):
 				if gut:
 					pot_src.push_back(Vector2(x,y))
+	pot_src.shuffle()
 	return pot_src
 
 

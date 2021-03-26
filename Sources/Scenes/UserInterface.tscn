@@ -249,7 +249,7 @@ size_flags_horizontal = 3
 min_value = -1.0
 max_value = 0.0
 step = 0.001
-value = -0.6
+value = -0.8
 
 [node name="WorldTemperatureHigh" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
 margin_top = 252.0
@@ -973,7 +973,6 @@ max_value = 8.0
 value = 3.0
 
 [node name="Rivers" type="VBoxContainer" parent="PauseMenu/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1017,7 +1016,7 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 max_value = 2.0
 step = 0.001
-value = 0.8
+value = 0.75
 
 [node name="RiverSRain" type="HBoxContainer" parent="PauseMenu/TabContainer/Rivers"]
 margin_top = 56.0
@@ -1037,9 +1036,10 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 max_value = 2.0
 step = 0.001
-value = 0.75
+value = 0.69
 
 [node name="Vegetation" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0

@@ -1,8 +1,11 @@
 extends "res://Sources/Scripts/GameWorld.gd"
 
+signal data_created
+
 export var isCreated:=false setget set_iscreated
 
 onready	var settings:=get_node("../Control/Options")
+onready var label:=get_node("../CanvasLayer/ColorRect/Label2")
 
 func set_iscreated(value:bool):
 	isCreated=value
@@ -10,7 +13,9 @@ func set_iscreated(value:bool):
 
 func make_world(arg):
 	self.isCreated=false
-	
+	yield(get_tree(),"idle_frame")
+	label.text="Gathering Parameters"
+	yield(get_tree(),"idle_frame")
 	world_name=settings.values["WorldName"]
 	world_x_size=settings.values["WorldWidth"]
 	world_y_size=settings.values["WorldHeight"]
@@ -62,6 +67,10 @@ func make_world(arg):
 	secondaryLayers[1].period=settings.values["VegetationPeriod"]
 	secondaryLayers[1].octaves=settings.values["VegetationOctaves"]
 	
+	yield(get_tree(),"idle_frame")
+	label.text="Generating primary layers"
+	yield(get_tree(),"idle_frame")
+	
 	var thrs=[]
 	for l in range(primaryLayers.size()):
 		primaryLayers[l].world_x_size = world_x_size
@@ -70,11 +79,24 @@ func make_world(arg):
 		thrs.append(t)
 		t.start(primaryLayers[l],"Generate")
 	
+	yield(get_tree(),"idle_frame")
+	
 	for t in thrs:
+		yield(get_tree(),"idle_frame")
 		t.wait_to_finish()
+	
+	yield(get_tree(),"idle_frame")
+	label.text="Generating Secondary Layers"
+	yield(get_tree(),"idle_frame")
 	
 	for l in range(secondaryLayers.size()):
 		secondaryLayers[l].world_x_size = world_x_size
 		secondaryLayers[l].world_y_size = world_y_size
 		secondaryLayers[l].Generate([])
-	self.isCreated=true
+	
+	yield(get_tree(),"idle_frame")
+	label.text="Preparing Tilemaps"
+	yield(get_tree(),"idle_frame")
+	
+	emit_signal("data_created")
+	
