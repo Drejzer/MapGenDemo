@@ -7,9 +7,9 @@ onready var rain:=get_node("../World/RainfallMap")
 signal Generated
 
 func _gen_Biome_disp():
-	for i in range(wld.world_x_size):
+	for i in range(-wld.world_x_size/2,3*wld.world_x_size/2):
 		for j in range(wld.world_y_size):
-			var tp = rain.map[i][j]
+			var tp = rain.map[(wld.world_x_size+i)%wld.world_x_size][j]
 			if tp <= 0.1:
 				self.set_cell(i,j,0)
 			elif tp <= 0.2:

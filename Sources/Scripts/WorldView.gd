@@ -8,6 +8,7 @@ onready var bd:=get_node("BiomeDisplay")
 onready var rfd:=get_node("RainfallDisplay")
 onready var trd:=get_node("TerrainDisplay")
 onready var vgd:=get_node("VegetationDisplay")
+onready var drd:=get_node("DrainageDisplay")
 
 func _on_Options_ui_generate_pressed() -> void:
 	wld.isCreated=false
@@ -26,12 +27,14 @@ func _on_Options_ui_generate_pressed() -> void:
 	yield(get_tree(),"idle_frame")
 	vgd._gen_Vege_disp()
 	yield(get_tree(),"idle_frame")
-	#bd._gen_Biome_disp()
+	bd._gen_Biome_disp()
+	yield(get_tree(),"idle_frame")
+	drd._gen_Drain_disp()
 	yield(get_tree(),"idle_frame")
 	walk._on_HeightMap_ready()
 	yield(get_tree(),"idle_frame")
-	yield(get_tree(),"idle_frame")
 	wld.isCreated=true
+	yield(get_tree(),"idle_frame")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("SwitchBiomeDisp"):
@@ -42,21 +45,31 @@ func _unhandled_input(event: InputEvent) -> void:
 		tmd.visible=false
 		rfd.visible=false
 		vgd.visible=false
+		drd.visible=false
 		get_tree().set_input_as_handled()
 	elif event.is_action_pressed("SwitchToRainDisp"):
 		rfd.visible=true
 		tmd.visible=false
 		trd.visible=false
 		vgd.visible=false
+		drd.visible=false
 		get_tree().set_input_as_handled()
 	elif event.is_action_pressed("SwitchToVegeDisp"):
 		vgd.visible=true
 		rfd.visible=false
 		tmd.visible=false
 		trd.visible=false
+		drd.visible=false
 		get_tree().set_input_as_handled()
+	elif event.is_action_pressed("SwitchToDrainageDisp"):
+		drd.visible=true
+		tmd.visible=false
+		vgd.visible=false
+		rfd.visible=false
+		trd.visible=false
 	elif event.is_action_pressed("SwitchToTempDisp"):
 		tmd.visible=true
+		drd.visible=false
 		vgd.visible=false
 		rfd.visible=false
 		trd.visible=false

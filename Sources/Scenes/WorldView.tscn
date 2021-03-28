@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Sources/Scenes/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sources/Scripts/Walker.gd" type="Script" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Sources/Scripts/VegetationDisplay.gd" type="Script" id=13]
 [ext_resource path="res://Sources/Resources/VegetationTiles.tres" type="TileSet" id=14]
 [ext_resource path="res://Sources/Resources/RainfallTiles.tres" type="TileSet" id=15]
+[ext_resource path="res://Sources/Resources/BiomeTiles.tres" type="TileSet" id=16]
+[ext_resource path="res://Sources/Scripts/DrainageDisplay.gd" type="Script" id=17]
 
 [node name="WorldView" type="Node"]
 script = ExtResource( 4 )
@@ -88,33 +90,47 @@ __meta__ = {
 visible = false
 z_index = 1
 tile_set = ExtResource( 7 )
-cell_size = Vector2( 8, 8 )
-cell_quadrant_size = 64
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 32
 format = 1
 script = ExtResource( 8 )
 
 [node name="BiomeDisplay" type="TileMap" parent="."]
-visible = false
+z_index = 1
+tile_set = ExtResource( 16 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 32
 format = 1
 script = ExtResource( 10 )
 
 [node name="TerrainDisplay" type="TileMap" parent="."]
 tile_set = ExtResource( 7 )
-cell_size = Vector2( 8, 8 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 32
 format = 1
 script = ExtResource( 11 )
 
 [node name="RainfallDisplay" type="TileMap" parent="."]
 visible = false
 tile_set = ExtResource( 15 )
-cell_size = Vector2( 8, 8 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 32
 format = 1
 script = ExtResource( 12 )
+
+[node name="DrainageDisplay" type="TileMap" parent="."]
+visible = false
+tile_set = ExtResource( 15 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 32
+format = 1
+script = ExtResource( 17 )
 
 [node name="VegetationDisplay" type="TileMap" parent="."]
 visible = false
 tile_set = ExtResource( 14 )
-cell_size = Vector2( 8, 8 )
+cell_size = Vector2( 16, 16 )
+cell_quadrant_size = 32
 format = 1
 script = ExtResource( 13 )
 
@@ -124,9 +140,8 @@ texture = ExtResource( 9 )
 script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="Walker"]
-anchor_mode = 0
 current = true
-limit_left = -1
+limit_left = -2
 limit_top = -1
 [connection signal="ui_generate_pressed" from="Control/Options" to="." method="_on_Options_ui_generate_pressed"]
 

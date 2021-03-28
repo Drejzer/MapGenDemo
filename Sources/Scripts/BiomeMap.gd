@@ -8,60 +8,64 @@ onready var vg:=get_parent().get_node("VegetationMap")
 onready var rv:=get_parent().get_node("RiverMap")
 onready var dr:=get_parent().get_node("DrainageMap")
 
-func Generate(args):
+func Generate(_args):
 	map=[]
 	
-	var rng = RandomNumberGenerator.new()
-	
-
 	var biome_codes={
-	"Ice":0,
-	"DeepSea":1,
-	"Sea":2,
-	"Desert":3,
-	"Grassland":4,
-	"Marshland":5,
-	"Swamp":6,
-	"Forest":7,
-	"Jungle":8,
-	"Tundra":9,
-	"MountainForest":10,
-	"MountainGrassland":11,
-	"BarrenMountain":12
+	"Error":int(0),
+	"Ice":int(1),
+	"Sea":int(2),
+	"Desert":int(3),
+	"Grassland":int(4),#
+	"Marshland":int(5),#
+	"Swamp":int(6),#
+	"Forest":int(7),#
+	"Jungle":int(8),#
+	"Tundra":int(9),#
+	"MountainForest":int(10),#
+	"MountainGrassland":int(11),#
+	"BarrenMountain":int(12)#
 	}
 
 	for x in range(world_x_size):
 		map.append([])
 		for y in range(world_y_size):
 			map[x].append(0)
-			if tm.map[x][y]<w.IcebergThershold: 
+			if tm.map[x][y]<=((w.IcebergThershold-0.01)*(w.TemperatureHigh-w.TemperatureLow)+w.TemperatureLow) && vg.map[x][y]<w.ForestThreshold:
 				map[x][y]=biome_codes["Ice"]
 				continue
-			if ht.map[x][y]<w.SeaLevel-0.01375:
-				map[x][y]=biome_codes["DeepSea"]
-				continue
-			if ht.map[x][y]<w.SeaLevel:
+			if ht.map[x][y]<w.SeaLevel&& tm.map[x][y]>((w.IcebergThershold-0.01)*(w.TemperatureHigh-w.TemperatureLow)+w.TemperatureLow):
 				map[x][y]=biome_codes["Sea"]
 				continue
-			if ht.map[x][y]>w.MountainThreshold:
-				if vg.map[x][y]>w.ForestThreshold:
+			else:
+				if ht.map[x][y]>=w.MountainThreshold && vg.map[x][y]>=w.ForestThreshold:
 					map[x][y]=biome_codes["MountainForest"]
-				elif vg.map[x][y]>0.2:
-					map[x][y]=biome_codes["MountainGrassland"] #grassy mountain
-				else:
+					continue
+				if ht.map[x][y]>=w.MountainThreshold && vg.map[x][y]<w.ForestThreshold && vg.map[x][y]>=w.ForestThreshold*0.25:
+					map[x][y]=biome_codes["MountainGrassland"]
+					continue
+				if ht.map[x][y]>=w.MountainThreshold && vg.map[x][y]<w.ForestThreshold*0.125:
 					map[x][y]=biome_codes["BarrenMountain"]
-				continue
-			if vg.map[x][y]<0.1:
-				map[x][y]=6 #desert
-			if vg.map[x][y]<w.ForestThreshold:
-				if rf.map[x][y]>0.5:
-					if dr.map[x][y]<0.3:
-						map[x][y]=7 #marshes
-				else:
-					map[x][y]=8#grasslands
-			elif vg.map[x][y]<1.1:
-				map[x][y]=9#light forest
-			elif vg.map[x][y]<1.5:
-				map[x][y]=10#dense forest
-			elif vg.map[x][y]>=1.5:
-				map[x][y]=11#jungle
+					continue
+				if vg.map[x][y]<0.125:
+					map[x][y]=biome_codes["Desert"]
+					continue
+				if vg.map[x][y]>=0.125 && vg.map[x][y]<w.ForestThreshold && dr.map[x][y]>=rf.map[x][y]-0.125 && ht.map[x][y]<w.MountainThreshold:
+					map[x][y]=biome_codes["Grassland"]
+					continue
+				if dr.map[x][y]<rf.map[x][y]-0.125 && vg.map[x][y]<w.ForestThreshold && ht.map[x][y]<w.MountainThreshold:
+					map[x][y]=biome_codes["Marshland"]
+					continue
+				if dr.map[x][y]<rf.map[x][y]-0.125 && vg.map[x][y]>=w.ForestThreshold && ht.map[x][y]<w.MountainThreshold:
+					map[x][y]=biome_codes["Swamp"]
+					continue
+				if dr.map[x][y]>=rf.map[x][y]-0.125 && vg.map[x][y]>=w.ForestThreshold && ht.map[x][y]<w.MountainThreshold && tm.map[x][y]<((1-w.IcebergThershold+0.01)*(w.TemperatureHigh-w.TemperatureLow)+w.TemperatureLow) && tm.map[x][y]>((w.IcebergThershold-0.01)*(w.TemperatureHigh-w.TemperatureLow)+w.TemperatureLow) :
+					map[x][y]=biome_codes["Forest"]
+					continue
+				if tm.map[x][y]<=((w.IcebergThershold-0.01)*(w.TemperatureHigh-w.TemperatureLow)+w.TemperatureLow) && vg.map[x][y]>=w.ForestThreshold && ht.map[x][y]<w.MountainThreshold:
+					map[x][y]=biome_codes["Tundra"]
+					continue
+				if tm.map[x][y]>=((1-w.IcebergThershold+0.01)*(w.TemperatureHigh-w.TemperatureLow)+w.TemperatureLow) && vg.map[x][y]>=w.ForestThreshold && ht.map[x][y]<w.MountainThreshold:
+					map[x][y]=biome_codes["Jungle"]
+					continue
+

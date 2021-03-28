@@ -52,7 +52,6 @@ __meta__ = {
 }
 
 [node name="World" type="VBoxContainer" parent="PauseMenu/TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -203,7 +202,7 @@ Depending on the terrain, there might be fewer rivers than specified."
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
-value = 0.8
+value = 0.7
 
 [node name="WorldForestThreshold" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
 margin_top = 196.0
@@ -226,7 +225,7 @@ size_flags_horizontal = 3
 min_value = 0.25
 max_value = 2.0
 step = 0.001
-value = 0.5
+value = 0.75
 
 [node name="WorldIceThreshold" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
 margin_top = 224.0
@@ -246,10 +245,9 @@ margin_bottom = 24.0
 hint_tooltip = "Changes th amount of rivers generated.
 Depending on the terrain, there might be fewer rivers than specified."
 size_flags_horizontal = 3
-min_value = -1.0
-max_value = 0.0
+max_value = 1.0
 step = 0.001
-value = -0.8
+value = 0.125
 
 [node name="WorldTemperatureHigh" type="HBoxContainer" parent="PauseMenu/TabContainer/World"]
 margin_top = 252.0
@@ -973,6 +971,7 @@ max_value = 8.0
 value = 3.0
 
 [node name="Rivers" type="VBoxContainer" parent="PauseMenu/TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
