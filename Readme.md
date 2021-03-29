@@ -4,9 +4,8 @@ Made using godot.
 (https://godotengine.org/license)
 
 
-Controls:
+Controls:  
 \[arrow keys\]: move camera  
-
 \[ESC\]: Pause menu  
 \[B\]: Toggle Biome display  
 \[H\]: Switch to Terrain Display  
