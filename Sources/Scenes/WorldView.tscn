@@ -141,6 +141,7 @@ script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="Walker"]
 current = true
+zoom = Vector2( 2, 2 )
 limit_left = -2
 limit_top = -1
 [connection signal="ui_generate_pressed" from="Control/Options" to="." method="_on_Options_ui_generate_pressed"]
