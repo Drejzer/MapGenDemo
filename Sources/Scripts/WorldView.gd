@@ -12,6 +12,7 @@ onready var drd:=get_node("DrainageDisplay")
 
 func _on_Options_ui_generate_pressed() -> void:
 	wld.isCreated=false
+	seed(wld.world_seed)
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")
 	wld.call_deferred("make_world",1)

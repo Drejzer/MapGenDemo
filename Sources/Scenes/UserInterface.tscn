@@ -319,8 +319,8 @@ margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-min_value = -2.14748e+09
-max_value = 2.14748e+09
+min_value = -9.22337e+18
+max_value = 9.22337e+18
 
 [node name="TerrainOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Terrain"]
 margin_top = 28.0
@@ -489,8 +489,8 @@ margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-min_value = -2.14748e+09
-max_value = 2.14748e+09
+min_value = -9.22337e+18
+max_value = 9.22337e+18
 
 [node name="RainfallOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Rainfall"]
 margin_top = 28.0
@@ -658,8 +658,8 @@ margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-min_value = -2.14748e+09
-max_value = 2.14748e+09
+min_value = -9.22337e+18
+max_value = 9.22337e+18
 
 [node name="TemperatureOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Temperature"]
 margin_top = 28.0
@@ -826,8 +826,8 @@ margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-min_value = -2.14748e+09
-max_value = 2.14748e+09
+min_value = -9.22337e+18
+max_value = 9.22337e+18
 
 [node name="DrainageOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Drainage"]
 margin_top = 28.0
@@ -994,8 +994,8 @@ margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-min_value = -2.14748e+09
-max_value = 2.14748e+09
+min_value = -9.22337e+18
+max_value = 9.22337e+18
 
 [node name="RiverSHeight" type="HBoxContainer" parent="PauseMenu/TabContainer/Rivers"]
 margin_top = 28.0
@@ -1061,8 +1061,8 @@ margin_left = 73.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-min_value = -2.14748e+09
-max_value = 2.14748e+09
+min_value = -9.22337e+18
+max_value = 9.22337e+18
 
 [node name="VegetationOffset" type="VBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
 margin_top = 28.0
