@@ -182,8 +182,7 @@ func get_coast_points():
 
 func Generate(args):
 	map=[]
-	rng.set_seed(layer_seed)
-	rng.seed=rng.randi()
+	seed(layer_seed)
 	
 	for x in range(world_x_size):
 		map.push_back([])
