@@ -11,7 +11,7 @@ func _gen_Vege_disp():
 	for i in range(-wld.world_x_size/2,3*wld.world_x_size/2):
 		for j in range(wld.world_y_size):
 			var tp = vege.map[(wld.world_x_size+i)%wld.world_x_size][j]
-			if tp <= 0.125:
+			if tp < 0.125:
 				self.set_cell(i,j,0)
 			elif tp <= 0.25:
 				self.set_cell(i,j,1)

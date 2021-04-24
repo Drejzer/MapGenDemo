@@ -19,9 +19,12 @@ func fault_row_calc(args:Array):
 					map[x][y]-= 1.1
 		x+=1
 
-func GenerateHeightMap_Plasma(depth:int=7,displace:float=110.0,roughness:float=1.0):
+func GenerateHeightMap_Plasma(depth:int=7,displace:float=1.0,roughness:float=2.0):
 	world_x_size=int(pow(2,depth))+1
 	world_y_size=world_x_size
+	get_parent().world_x_size=world_x_size
+	get_parent().world_y_size=world_y_size
+	
 	var rng = RandomNumberGenerator.new()
 	rng.seed=layer_seed
 	map=[]
@@ -72,7 +75,7 @@ func GenerateHeightMap_Plasma(depth:int=7,displace:float=110.0,roughness:float=1
 		displace*=pow(2,-roughness)
 	pass
 
-func GenerateCylindricHeightMap_Plasma(depth:int=7,displace:float=1.0,roughness:float=1.1):
+func GenerateCylindricHeightMap_Plasma(depth:int=9,displace:float=1.0,roughness:float=1.1):
 	world_x_size=int(pow(2,depth))+1
 	world_y_size=world_x_size
 	var rng = RandomNumberGenerator.new()
@@ -124,6 +127,9 @@ func GenerateCylindricHeightMap_Plasma(depth:int=7,displace:float=1.0,roughness:
 func GenerateHeightMap_fault(x_size:int=100,y_size:int=100,repeats:int=500):
 	world_x_size=x_size
 	world_y_size=y_size
+	get_parent().world_x_size=x_size
+	get_parent().world_y_size=y_size
+	
 	print("1",OS.get_time())
 	var rng = RandomNumberGenerator.new()
 	rng.seed=layer_seed
@@ -227,7 +233,6 @@ func GenerateCylindricHeightMap_OpenSimplex():
 	for x in range(world_x_size):
 		map.append([])
 		var deg = float(float(x)/float(world_x_size))*2*PI+rotation
-		
 		for y in range(world_y_size):
-
-			map[x].append(osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)/0.8)
+			var noiseval = osn.get_noise_3d(cos(deg)*radius+offset.x,sin(deg)*radius+offset.y,y+offset.z)/0.86
+			map[x].append(noiseval)

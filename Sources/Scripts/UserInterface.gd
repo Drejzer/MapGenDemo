@@ -56,7 +56,7 @@ export var values:={
 			"VegetationYOffset":0,
 			"VegetationZOffset":0,
 			"VegetationLacunarity":1.0,
-			"VegetationPersistance":1,
+			"VegetationPersistance":0.75,
 			"VegetationPeriod":100.0,
 			"VegetationOctaves":3,
 			}

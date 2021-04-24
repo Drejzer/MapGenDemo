@@ -36,8 +36,8 @@ func _process(delta: float):
 
 func _on_HeightMap_ready() -> void:
 	var tmp = get_parent().get_node("World/HeightMap")
-	barrier_x = (tmp.world_x_size-1)*16
-	barrier_y = (tmp.world_y_size-1)*16
+	barrier_x = (tmp.world_x_size)*16
+	barrier_y = (tmp.world_y_size)*16
 	var k=get_child(0)
 	self.position=Vector2(tmp.world_x_size/2,tmp.world_y_size/2)
 	k.limit_right=barrier_x+barrier_x/2+5
@@ -45,12 +45,12 @@ func _on_HeightMap_ready() -> void:
 	k.limit_top=-1
 	k.limit_left=-barrier_x-5
 	if position.x>barrier_x:
-		position.x=barrier_x-1
-	elif position.x < 0:
 		position.x=1
+	elif position.x < 0:
+		position.x=barrier_x-1
 	if position.y>barrier_y:
-		position.y=barrier_y-1
+		position.y=barrier_y
 	elif position.y < 0:
-		position.y=1
+		position.y=0
 	gensemafor=false
 	#print(barrier_x,barrier_y)

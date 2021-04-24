@@ -110,8 +110,7 @@ text = "Width"
 margin_left = 42.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "Width of the generated world"
 size_flags_horizontal = 3
 min_value = 5.0
 max_value = 2048.0
@@ -132,8 +131,7 @@ text = "Height"
 margin_left = 46.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "Height of the generated world"
 size_flags_horizontal = 3
 min_value = 5.0
 max_value = 2048.0
@@ -175,8 +173,7 @@ text = "Sea Level"
 margin_left = 64.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "Terrain elevation separating land from oceans"
 size_flags_horizontal = 3
 min_value = -0.9
 max_value = 0.8
@@ -197,8 +194,7 @@ text = "Mountain Threshold"
 margin_left = 131.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "Minimum elevation for a tile to be considered a mountain"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
@@ -219,8 +215,7 @@ text = "Forest Threshold"
 margin_left = 111.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "minimum vegetation value for a tile to be considered forest"
 size_flags_horizontal = 3
 min_value = 0.25
 max_value = 2.0
@@ -242,8 +237,7 @@ text = "Ice Threshold"
 margin_left = 91.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "Determinses the \"distance\" between lowest andhighest possible temetarures to be considered \"ice\" terrain (0- lowest, 1- highest)"
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
@@ -264,8 +258,7 @@ text = "Temperature High"
 margin_left = 119.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "Highest possible temperatre value"
 size_flags_horizontal = 3
 min_value = -1000.0
 max_value = 1000.0
@@ -287,8 +280,7 @@ text = "Temperature Low"
 margin_left = 115.0
 margin_right = 1016.0
 margin_bottom = 24.0
-hint_tooltip = "Changes th amount of rivers generated.
-Depending on the terrain, there might be fewer rivers than specified."
+hint_tooltip = "lowest possible value"
 size_flags_horizontal = 3
 min_value = -1000.0
 max_value = 1000.0
@@ -1095,6 +1087,7 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 min_value = -1e+06
 max_value = 1e+06
+step = 0.1
 
 [node name="Label2" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
 margin_left = 340.0
@@ -1110,6 +1103,7 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 min_value = -1e+06
 max_value = 1e+06
+step = 0.1
 
 [node name="Label3" type="Label" parent="PauseMenu/TabContainer/Vegetation/VegetationOffset/Coordinates"]
 margin_left = 679.0
@@ -1125,6 +1119,7 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 min_value = -1e+06
 max_value = 1e+06
+step = 0.1
 
 [node name="VegetationLacunarity" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
 margin_top = 74.0
@@ -1161,8 +1156,9 @@ margin_left = 78.0
 margin_right = 1016.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-max_value = 5.0
-value = 1.0
+max_value = 2.0
+step = 0.001
+value = 0.75
 
 [node name="VegetationPeriod" type="HBoxContainer" parent="PauseMenu/TabContainer/Vegetation"]
 margin_top = 130.0

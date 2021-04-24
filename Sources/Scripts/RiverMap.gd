@@ -51,8 +51,8 @@ func RiverSource(x,y):
 				break
 		elif terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(riverhead.x)][int(riverhead.y)]:
 			var prev = riv[riv.size()-1]
-			#if terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(prev.x)][int(prev.y)]:
-			depth+=1
+			if terr.map[int(dirs[0].x)][int(dirs[0].y)]>terr.map[int(prev.x)][int(prev.y)]:
+				depth+=1
 			if depth>5:
 				break
 			terr.map[int(riverhead.x)][int(riverhead.y)]=terr.map[int(dirs[0].x)][int(dirs[0].y)]
@@ -105,51 +105,29 @@ func get_potential_sources()->Array:
 func verify_startpoints(sp)->Array:
 	var np = []
 	for p in sp:
-		if map[p.x][p.y]<=-1 or map[p.x][p.y]>=1:
-			continue
-		if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)]>=1:
-			continue
-		if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)]>=1:
-			continue
-		if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)]>=1:
-			continue
-		if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)]>=1:
-			continue
-		if int(p.y)<world_y_size-1:
-			if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)+1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)+1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)+1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)+1]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)+1]>=1:
-				continue
-			if terr.map[(int(p.x)+world_x_size)%world_x_size][int(p.y)+1]<=-1 or terr.map[(int(p.x)+world_x_size)%world_x_size][int(p.y)+1]>=1:
-				continue
-		if p.y>=1:
-			if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-1]>=1:
-				continue
-			if map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-1]<=-1 or map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-1]>=1:
-				continue
-		if p.y>=2:
-			if map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-2]>=1:
-				continue
-			if map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size+2)%world_x_size][int(p.y)-2]>=1:
-				continue
-			if map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-2]>=1:
-				continue
-			if map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size-2)%world_x_size][int(p.y)-2]>=1:
-				continue
-			if map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-2]<=-1 or map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-2]>=1:
-				continue
-		
-		np.push_back(p)
+		var isok=true
+		if int(map[p.x][p.y])!=0 && isok:
+			isok=false
+		if int(map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)])!=0 && isok:
+			isok=false
+		if int(map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)])!=0 && isok:
+			isok=false
+		if int(p.y)<world_y_size-1&&isok:
+			if int(map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)+1])!=0 && isok:
+				isok=false
+			if int(map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)+1])!=0 && isok:
+				isok=false
+			if int(terr.map[(int(p.x)+world_x_size)%world_x_size][int(p.y)+1])!=0 && isok:
+				isok=false
+		if int(p.y)>=1 && isok:
+			if int(map[(int(p.x)+world_x_size+1)%world_x_size][int(p.y)-1])!=0 && isok:
+				isok=false
+			if int(map[(int(p.x)+world_x_size-1)%world_x_size][int(p.y)-1])!=0 && isok:
+				isok=false
+			if int(map[(int(p.x)+world_x_size)%world_x_size][int(p.y)-1])!=0 && isok:
+				isok=false
+		if isok:
+			np.push_back(p)
 	return np
 
 func get_coast_points():
@@ -182,8 +160,10 @@ func get_coast_points():
 
 func Generate(args):
 	map=[]
-	seed(layer_seed)
 	
+	var rng= RandomNumberGenerator.new()
+	rng.set_seed(layer_seed)
+	seed(rng.get_seed())
 	for x in range(world_x_size):
 		map.push_back([])
 		for y in range(world_y_size):
@@ -196,16 +176,16 @@ func Generate(args):
 	get_coast_points()
 		
 	var startpoints = get_potential_sources()
-	startpoints = verify_startpoints(startpoints)
-	startpoints.shuffle()
 	while i<par.RiverCount:
+		startpoints = verify_startpoints(startpoints)
 		var randiter=rng.randi_range(0,startpoints.size()-1)
 		if(startpoints.size()==0):
 			print("Can't Add more Rivers")
 			break
 			
+		startpoints.shuffle()
 		RiverSource(int(startpoints[randiter].x),int(startpoints[randiter].y))
 		i+=1
 		print("New River at ",startpoints[randiter])
-		startpoints = verify_startpoints(startpoints)
+		startpoints.remove(randiter)
 			

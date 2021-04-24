@@ -36,10 +36,6 @@ config/name="Map Demo Game"
 run/main_scene="res://Sources/Scenes/MainMenu.tscn"
 config/icon="res://icon.png"
 
-[display]
-
-window/size/resizable=false
-
 [editor_plugins]
 
 enabled=PoolStringArray( "MapGenTools" )
